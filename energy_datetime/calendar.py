@@ -54,6 +54,10 @@ def create_bdew_calendar() -> HolidaySum:
     # Therefore we add all subdivisions of Germany to the BDEW specific holidays.
     # Currently, in Germany holidays are not observed.
     for cal in Germany.subdivisions:
-        calendar += Germany(subdiv=cal, observed=False)
+        # the method __add__ expects a Union[int, "HolidayBase", "HolidaySum"] as `other`
+        # here, we're dealing with a child instance of HolidayBase
+        calendar += Germany(
+            subdiv=cal, observed=False
+        )  # type:ignore[assignment]
 
     return calendar

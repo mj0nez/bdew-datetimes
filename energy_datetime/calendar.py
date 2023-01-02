@@ -1,3 +1,6 @@
+"""
+contains the business logic (namely the BDEW calendar information, mainly based on Germany holiday calendar)
+"""
 from datetime import date
 
 from holidays import HolidayBase, HolidaySum

@@ -3,7 +3,7 @@
 A collection of utils to work with datetimes and holidays in the german energy
 market and is based on the [python-holiday](https://github.com/dr-prodigy/python-holidays) package.
 
-The implementation considers the the publications of the **BDEW** (Bundesverband der Energie- und Wasserwirtschaft e. V.) and **EDI@Energy**, which provide boundaries and guidance for the data exchange on the german energy market. 
+The implementation considers the publications of the **BDEW** (Bundesverband der Energie- und Wasserwirtschaft e. V.) and **EDI@Energy**, which provide boundaries and guidance for the data exchange on the german energy market. 
 
 ### Current highlights:
 * BDEW-holiday calendar
@@ -48,7 +48,9 @@ Extending the `holidays` package, the `bdew_holidays` dict-like object will also
 ```
 ## Notes
 
-The BDEW considers all days as holidays, which are nation wide holidays and days, which are a holiday in at least one state. Furthermore, the 24. and the 31. December are holidays as well. Therefore this package utilizes a composition of all available german holiday calendars amd adds the two additional days.
+The BDEW considers all days as holidays, which are nationwide holidays and days, which are a holiday in at least one state.
+Furthermore, the 24. and the 31. December are holidays as well.
+Therefore, this package utilizes a composition of all available german holiday calendars amd adds the two additional days.
 
 Shifting holidays to the next weekday if they fall on a weekend is currently not considered.  
 

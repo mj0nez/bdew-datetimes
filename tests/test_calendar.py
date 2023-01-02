@@ -6,15 +6,15 @@ from datetime import date, datetime
 def test_bdew_holidays():
     calendar = BdewDefinedHolidays()
 
-    assert date(2021, 12, 31) in calendar  # ensure silvester is valid
-    assert date(2021, 12, 24) in calendar  # ensure silvester is valid
+    assert date(2021, 12, 31) in calendar  # ensure Silvester is valid
+    assert date(2021, 12, 24) in calendar  # ensure Heiligabend is valid
 
 
 def test_create_bdew_calendar():
 
     calendar = create_bdew_calendar()
 
-    assert date(2021, 12, 31) in calendar  # ensure silvester is valid
+    assert date(2021, 12, 31) in calendar  # ensure Silvester is valid
 
     assert date(2022, 1, 1) in calendar
     assert date(2022, 1, 2) not in calendar

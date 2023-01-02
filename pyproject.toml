@@ -16,3 +16,7 @@ exclude = '''
   | venv
 )/
 '''
+
+[tool.isort]
+line_length = 79
+profile = "black"

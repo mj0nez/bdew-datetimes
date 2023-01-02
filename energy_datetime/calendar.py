@@ -19,7 +19,7 @@ class BdewDefinedHolidays(HolidayBase):
     """
 
     def __init__(self, observed: bool = False, **kwargs):
-        super().__init__(self, observed=observed, **kwargs)
+        super().__init__(observed=observed, **kwargs)
 
     def _populate(self, year):
 

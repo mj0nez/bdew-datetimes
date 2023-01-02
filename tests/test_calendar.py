@@ -1,6 +1,6 @@
-from energy_datetime.calendar import BdewDefinedHolidays, create_bdew_calendar
-
 from datetime import date, datetime
+
+from energy_datetime.calendar import BdewDefinedHolidays, create_bdew_calendar
 
 
 def test_bdew_holidays():

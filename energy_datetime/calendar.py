@@ -1,5 +1,6 @@
 """
-contains the business logic (namely the BDEW calendar information, mainly based on Germany holiday calendar)
+contains the business logic (namely the BDEW calendar information)
+
 """
 from datetime import date
 

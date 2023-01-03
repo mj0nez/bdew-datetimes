@@ -59,5 +59,3 @@ def create_bdew_calendar() -> HolidaySum:
         calendar += Germany(subdiv=cal, observed=False)
 
     return calendar
-
-

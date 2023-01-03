@@ -1,13 +1,13 @@
-# energy-datetime-utils
+# bdew_holidays
 
-A collection of utils to work with datetimes and holidays in the german energy
-market and is based on the [python-holiday](https://github.com/dr-prodigy/python-holidays) package.
+The Python package `bdew_holidays` is collection of utils to work with datetimes and holidays in the German energy market.
+It's based on the [python-holiday](https://github.com/dr-prodigy/python-holidays) package.
 
-The implementation considers the publications of the **BDEW** (Bundesverband der Energie- und Wasserwirtschaft e. V.) and **EDI@Energy**, which provide boundaries and guidance for the data exchange on the german energy market. 
+The implementation considers the publications of the **BDEW** (Bundesverband der Energie- und Wasserwirtschaft e. V.) and **EDI@Energy**, which provide boundaries and guidance for the data exchange on the German energy market. 
 
 ### Current highlights:
 * BDEW-holiday calendar
-    * allows dict like evaluation of dates and datetimes and contains all holidays considered by the BDEW
+  * allows dict like evaluation of dates and datetimes and contains all holidays considered by the BDEW
 
 
 ### Future Scope:
@@ -16,36 +16,38 @@ The implementation considers the publications of the **BDEW** (Bundesverband der
 
 
 ## Quick Start
------------
+Install the package:
+```bash
+pip install bdew_holidays
+```
 
 ```python
-    from datetime import date
-    from energy_datetime import create_bdew_calendar
+from datetime import date
+from bdew_holidays import create_bdew_calendar
 
-    bdew_holidays = create_bdew_calendar()  # this is a dict
+bdew_holidays = create_bdew_calendar()  # this is a dict
 
-    assert date(2022, 12, 31) in bdew_holidays
-    assert not date(2022, 12, 2) in bdew_holidays
+assert date(2022, 12, 31) in bdew_holidays
+assert not date(2022, 12, 2) in bdew_holidays
 
-    bdew_holidays.get('2022-01-01')  # "Neujahr"
+bdew_holidays.get('2022-01-01')  # "Neujahr"
 ```
 
 Extending the `holidays` package, the `bdew_holidays` dict-like object will also recognize datetimes, date strings and Unix timestamps:
 
 ```python
-    from datetime import datetime
+from datetime import datetime
 
-    assert datetime(2022, 1, 1, 22, 16, 59) in bdew_holidays
-    assert "2022-01-01" in bdew_holidays
-    assert "1/1/2022" in bdew_holidays
+assert datetime(2022, 1, 1, 22, 16, 59) in bdew_holidays
+assert "2022-01-01" in bdew_holidays
+assert "1/1/2022" in bdew_holidays
 
-    ts = datetime(2022, 1, 1, 22, 16, 59).timestamp()  # POSIX timestamp: 1641071819.0
+ts = datetime(2022, 1, 1, 22, 16, 59).timestamp()  # POSIX timestamp: 1641071819.0
 
-    assert ts in bdew_holidays
-    assert int(ts) in bdew_holidays
-            
-          
+assert ts in bdew_holidays
+assert int(ts) in bdew_holidays
 ```
+
 ## Notes
 
 The BDEW considers all days as holidays, which are nationwide holidays and days, which are a holiday in at least one state.
@@ -56,8 +58,5 @@ Shifting holidays to the next weekday if they fall on a weekend is currently not
 
 
 ## License
-----------
 
-This library is licensed under the
-*MIT* license, see the
-[LICENSE file](LICENSE).
+This library is licensed under the *MIT* license, see the [LICENSE file](LICENSE).

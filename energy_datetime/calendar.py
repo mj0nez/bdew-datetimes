@@ -10,7 +10,8 @@ from holidays.countries.germany import Germany
 
 
 class BdewDefinedHolidays(HolidayBase):
-    """Special holidays considered by the BDEW, excluding nation wide or state specific holidays.
+    """
+    Special holidays considered by the BDEW, excluding nationwide or state specific holidays.
 
     To get a full calendar with all holidays use the function `create_bdew_calendar`.
 
@@ -52,7 +53,7 @@ def create_bdew_calendar() -> HolidaySum:
     calendar = BdewDefinedHolidays()
 
     # If a day is holiday in any subdivision, the holiday is valid nationwide.
-    # Therefore we add all subdivisions of Germany to the BDEW specific holidays.
+    # Therefore, we add all subdivisions of Germany to the BDEW specific holidays.
     # Currently, in Germany holidays are not observed.
     for cal in Germany.subdivisions:
         calendar += Germany(subdiv=cal, observed=False)

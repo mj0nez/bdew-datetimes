@@ -21,7 +21,7 @@ class BdewDefinedHolidays(HolidayBase):
     """
 
     def __init__(self, observed: bool = False, **kwargs):
-        super().__init__(self, observed=observed, **kwargs)
+        super().__init__(observed=observed, **kwargs)
 
     def _populate(self, year):
 
@@ -51,11 +51,16 @@ def create_bdew_calendar() -> HolidaySum:
 
     # First we need the BDEW specific holidays.
     calendar = BdewDefinedHolidays()
-
+    # the type is wrong at assignment but correct after the first loop interation
+    result: HolidaySum = calendar  # type:ignore[assignment]
     # If a day is holiday in any subdivision, the holiday is valid nationwide.
     # Therefore, we add all subdivisions of Germany to the BDEW specific holidays.
     # Currently, in Germany holidays are not observed.
-    for cal in Germany.subdivisions:
-        calendar += Germany(subdiv=cal, observed=False)
+    for subdivision in Germany.subdivisions:
+        # the method __add__ expects a Union[int, "HolidayBase", "HolidaySum"] as `other`
+        # here, we're dealing with a child instance of HolidayBase
+        result += Germany(
+            subdiv=subdivision, observed=False
+        )  # type:ignore[assignment]
 
-    return calendar
+    return result

@@ -1,6 +1,4 @@
 from datetime import date
-from typing import Literal
-
 import pytest  # type:ignore[import]
 
 from energy_datetime.periods import (
@@ -9,6 +7,7 @@ from energy_datetime.periods import (
     Period,
     add_frist,
     get_next_working_day,
+    _DayTyp,
 )
 
 
@@ -34,7 +33,7 @@ def test_period_instantiation_with_enum_and_inclusive_end():
     ],
 )
 def test_period_instantiation_with_str(
-    number_of_days: int, str_daytype: Literal["KT", "WT"], expected: Period
+    number_of_days: int, str_daytype: _DayTyp, expected: Period
 ):
     actual = Period(number_of_days, str_daytype)
     assert actual == expected

@@ -1,6 +1,6 @@
-# energy-datetime-utils
+# bdew_datetimes
 
-A collection of utils to work with datetimes and holidays in the german energy
+A collection of utils to work with datetimes and holidays in the German energy
 market and is based on the [python-holiday](https://github.com/dr-prodigy/python-holidays) package.
 
 The implementation considers the publications of the **BDEW** (Bundesverband der Energie- und Wasserwirtschaft e. V.) and **EDI@Energy**, which provide boundaries and guidance for the data exchange on the german energy market. 
@@ -16,10 +16,9 @@ The implementation considers the publications of the **BDEW** (Bundesverband der
 
 
 ## Quick Start
------------
 
 ```python
-    from datetime import date
+from datetime import date
 from bdew_datetimes import create_bdew_calendar
 
 bdew_holidays = create_bdew_calendar()  # this is a dict
@@ -33,18 +32,17 @@ bdew_holidays.get('2022-01-01')  # "Neujahr"
 Extending the `holidays` package, the `bdew_holidays` dict-like object will also recognize datetimes, date strings and Unix timestamps:
 
 ```python
-    from datetime import datetime
+import bdew_holidays
+from datetime import datetime
 
-    assert datetime(2022, 1, 1, 22, 16, 59) in bdew_holidays
-    assert "2022-01-01" in bdew_holidays
-    assert "1/1/2022" in bdew_holidays
+assert datetime(2022, 1, 1, 22, 16, 59) in bdew_holidays
+assert "2022-01-01" in bdew_holidays
+assert "1/1/2022" in bdew_holidays
 
-    ts = datetime(2022, 1, 1, 22, 16, 59).timestamp()  # POSIX timestamp: 1641071819.0
+ts = datetime(2022, 1, 1, 22, 16, 59).timestamp()  # POSIX timestamp: 1641071819.0
 
-    assert ts in bdew_holidays
-    assert int(ts) in bdew_holidays
-            
-          
+assert ts in bdew_holidays
+assert int(ts) in bdew_holidays  
 ```
 ## Notes
 
@@ -56,8 +54,5 @@ Shifting holidays to the next weekday if they fall on a weekend is currently not
 
 
 ## License
-----------
 
-This library is licensed under the
-*MIT* license, see the
-[LICENSE file](LICENSE).
+This library is licensed under the *MIT* license, see the [LICENSE file](LICENSE).

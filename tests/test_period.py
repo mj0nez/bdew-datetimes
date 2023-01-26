@@ -1,7 +1,7 @@
 from datetime import date
 import pytest  # type:ignore[import]
 
-from energy_datetime.periods import (
+from bdew_datetimes.periods import (
     DayType,
     EndDateType,
     Period,

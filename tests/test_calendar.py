@@ -3,7 +3,7 @@ from datetime import date, datetime
 import pytest  # type:ignore[import]
 from holidays import DateLike
 
-from energy_datetime.calendar import BdewDefinedHolidays, create_bdew_calendar
+from bdew_datetimes.calendar import BdewDefinedHolidays, create_bdew_calendar
 
 
 @pytest.mark.parametrize(

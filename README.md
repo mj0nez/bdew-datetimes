@@ -20,14 +20,14 @@ The implementation considers the publications of the **BDEW** (Bundesverband der
 
 ```python
     from datetime import date
-    from energy_datetime import create_bdew_calendar
+from bdew_datetimes import create_bdew_calendar
 
-    bdew_holidays = create_bdew_calendar()  # this is a dict
+bdew_holidays = create_bdew_calendar()  # this is a dict
 
-    assert date(2022, 12, 31) in bdew_holidays
-    assert not date(2022, 12, 2) in bdew_holidays
+assert date(2022, 12, 31) in bdew_holidays
+assert not date(2022, 12, 2) in bdew_holidays
 
-    bdew_holidays.get('2022-01-01')  # "Neujahr"
+bdew_holidays.get('2022-01-01')  # "Neujahr"
 ```
 
 Extending the `holidays` package, the `bdew_holidays` dict-like object will also recognize datetimes, date strings and Unix timestamps:

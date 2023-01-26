@@ -3,7 +3,8 @@ A module to evaluate datetimes and whether they are "on the edge"
 of a German "Stromtag" or "Gastag" respectively
 """
 from datetime import datetime, time
-from typing import Callable, Literal, Union
+from enum import Enum
+from typing import Callable
 
 # The problem with the stdlib zoneinfo is, that the availability of timezones
 # via ZoneInfo(zone_key) depends on the OS and system on which you're running
@@ -13,6 +14,15 @@ from typing import Callable, Literal, Union
 from pytz import timezone, utc
 
 berlin = timezone("Europe/Berlin")
+
+
+class Division(Enum):
+    """
+    allows to distinguish divisions used by German utilities, German "Sparte"
+    """
+
+    STROM = (1,)  #: electricity
+    GAS = 2  #: gas
 
 
 def _get_german_local_time(date_time: datetime) -> time:
@@ -76,17 +86,15 @@ def is_gastag_limit(
     )
 
 
-def is_xtag_limit(
-    date_time: datetime, division: Union[Literal["Strom"], Literal["Gas"]]
-) -> bool:
+def is_xtag_limit(date_time: datetime, division: Division) -> bool:
     """
     Tries to parse the entered_input as datetime and checks if it is the
     start/end of a Strom- or Gastag
     """
     xtag_evaluator: Callable[[datetime], bool]
-    if division == "Strom":
+    if division == Division.STROM:
         xtag_evaluator = is_stromtag_limit
-    elif division == "Gas":
+    elif division == Division.GAS:
         xtag_evaluator = is_gastag_limit
     else:
         raise NotImplementedError(

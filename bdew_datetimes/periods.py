@@ -89,7 +89,7 @@ class Period:
 
         """
         self.number_of_days = number_of_days
-        # If the frist is about something ending (e.g. a contract), then the user may
+        # If the Period is about something ending (e.g. a contract), then the user may
         # provide an end_date_type.
         # Internally we handle all end dates as exclusive, because:
         # https://hf-kklein.github.io/exclusive_end_dates.github.io/

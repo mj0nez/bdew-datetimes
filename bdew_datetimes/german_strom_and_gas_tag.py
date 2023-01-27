@@ -21,7 +21,7 @@ class Division(Enum):
     allows to distinguish divisions used by German utilities, German "Sparte"
     """
 
-    STROM = (1,)  #: electricity
+    STROM = 1  #: electricity
     GAS = 2  #: gas
 
 

@@ -11,7 +11,7 @@ from enum import Enum
 
 from holidays import SAT, SUN
 
-from . import create_bdew_calendar
+from bdew_datetimes import create_bdew_calendar
 
 try:
     from typing import Literal, Union

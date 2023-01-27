@@ -1,13 +1,14 @@
 from datetime import date
+
 import pytest  # type:ignore[import]
 
 from bdew_datetimes.periods import (
     DayType,
     EndDateType,
     Period,
+    _DayTyp,
     add_frist,
     get_next_working_day,
-    _DayTyp,
 )
 
 

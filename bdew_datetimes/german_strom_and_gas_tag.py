@@ -18,7 +18,7 @@ GERMAN_TIME_ZONE = timezone("Europe/Berlin")
 
 class Division(Enum):
     """
-    allows to distinguish divisions used by German utilities, German "Sparte"
+    Allows to distinguish divisions used by German utilities, German "Sparte".
     """
 
     STROM = 1  #: electricity
@@ -27,7 +27,7 @@ class Division(Enum):
 
 def _get_german_local_time(date_time: datetime) -> time:
     """
-    returns the current german local time for the given datetime object
+    Returns the current german local time for the given datetime object.
     """
     german_local_datetime = date_time.astimezone(GERMAN_TIME_ZONE)
     return german_local_datetime.time()
@@ -35,8 +35,8 @@ def _get_german_local_time(date_time: datetime) -> time:
 
 def has_no_utc_offset(date_time: datetime) -> bool:
     """
-    returns true if and only if date_time has an explicit offset
-    which and the UTC-offset is 0. This means the UTC offset is exactly "+00:00".
+    Returns true if and only if date_time has an explicit offset to UTC.
+    If the UTC-offset is 0, it is exactly "+00:00".
     """
     # the name of the function contains a negation because in German
     # market communication it often matters that the UTC offset is 0.
@@ -55,10 +55,11 @@ def is_stromtag_limit(
 ) -> bool:  # the name is not as speaking as I'd like it to be
     """
     Returns true if and only if the given date_time is the inclusive
-    start or exclusive end of a german "Stromtag". The "Stromtag" is
-    the balancing relevant day in the German electricity market.
+    start or exclusive end of a german "Stromtag".
+    The "Stromtag" is the balancing relevant day in the German electricity
+    market.
     It starts and ends at midnight in German local time which can be
-    either 23PM or 22PM in UTC (depending on the daylight saving time in Germany).
+    either 23:00 h or 22:00 h in UTC (depending on the daylight saving time in Germany).
     """
     german_local_time = _get_german_local_time(date_time)
     return (
@@ -72,11 +73,11 @@ def is_gastag_limit(
     date_time: datetime,
 ) -> bool:  # the name is not as speaking as I'd like it to be
     """
-    Returns true if and only if the given date_time is the
-    inclusive start or exclusive end of a german "Gastag".
+    Returns true if and only if the given date_time is the inclusive start
+    or exclusive end of a german "Gastag".
     The "Gastag" is the balancing relevant day in the German gas market.
     It starts and ends at 6am in German local time which can be either
-    4AM or 5AM in UTC (depending on the daylight saving time in Germany).
+    04:00 h or 05:00 h in UTC (depending on the daylight saving time in Germany).
     """
     german_local_time = _get_german_local_time(date_time)
     return (
@@ -88,8 +89,7 @@ def is_gastag_limit(
 
 def is_xtag_limit(date_time: datetime, division: Division) -> bool:
     """
-    Tries to parse the entered_input as datetime and checks if it is the
-    start/end of a Strom- or Gastag
+    Evaluates if it is the start/end of a provided division.
     """
     xtag_evaluator: Callable[[datetime], bool]
     if division == Division.STROM:

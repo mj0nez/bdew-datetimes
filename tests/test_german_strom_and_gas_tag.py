@@ -3,10 +3,12 @@ from datetime import datetime, timedelta, timezone
 import pytest  # type:ignore[import]
 
 from bdew_datetimes.german_strom_and_gas_tag import (
-    berlin,
+    GERMAN_TIME_ZONE,
     has_no_utc_offset,
     is_gastag_limit,
     is_stromtag_limit,
+    is_xtag_limit,
+    Division,
 )
 
 
@@ -22,7 +24,9 @@ from bdew_datetimes.german_strom_and_gas_tag import (
         pytest.param(
             datetime(2019, 12, 31, 22, 0, 0, tzinfo=timezone.utc), False
         ),
-        pytest.param(datetime(2010, 1, 1, 0, 0, 0, tzinfo=berlin), True),
+        pytest.param(
+            datetime(2010, 1, 1, 0, 0, 0, tzinfo=GERMAN_TIME_ZONE), True
+        ),
         pytest.param(
             datetime(
                 2010, 1, 1, 0, 0, 0, tzinfo=timezone(timedelta(seconds=3600))
@@ -169,3 +173,50 @@ def test_gastag(dt: datetime, expected_is_start_or_end_of_german_gastag: bool):
 def test_has_no_utc_offset(dt: datetime, expected_has_not_utc_offset: bool):
     actual = has_no_utc_offset(dt)
     assert actual == expected_has_not_utc_offset
+
+
+@pytest.mark.parametrize(
+    "dt, division",
+    [
+        pytest.param(datetime(2020, 1, 1, 0, 0, 0, tzinfo=timezone.utc), 0),
+    ],
+)
+def test_is_xtag_limit_raises(dt: datetime, division: Division):
+    with pytest.raises(NotImplementedError):
+        is_xtag_limit(date_time=dt, division=division)
+
+
+@pytest.mark.parametrize(
+    "dt, division, expected",
+    [
+        pytest.param(
+            datetime(2020, 1, 1, 0, 0, 0, tzinfo=timezone.utc),
+            Division.GAS,
+            False,
+        ),
+        pytest.param(
+            datetime(2020, 1, 1, 5, 0, 0, tzinfo=timezone.utc), Division.GAS, True
+        ),
+        pytest.param(
+            datetime(2020, 1, 1, 4, 0, 0, tzinfo=timezone.utc), Division.GAS, False
+        ),
+        pytest.param(
+            datetime(2022, 3, 26, 5, 0, 0, 0, tzinfo=timezone.utc), Division.GAS, True
+        ),
+         pytest.param(
+            datetime(2020, 1, 1, 0, 0, 0, tzinfo=timezone.utc), Division.STROM, False
+        ),
+        pytest.param(
+            datetime(2019, 12, 31, 23, 0, 0, tzinfo=timezone.utc), Division.STROM, True
+        ),
+        pytest.param(
+            datetime(2019, 12, 31, 22, 0, 0, tzinfo=timezone.utc), Division.STROM, False
+        ),
+        pytest.param(
+            datetime(2010, 1, 1, 0, 0, 0, tzinfo=GERMAN_TIME_ZONE), Division.STROM, True
+        ),
+    ],
+)
+def test_is_xtag_limit(dt: datetime, division: int, expected):
+    actual = is_xtag_limit(dt, division)
+    assert actual == expected

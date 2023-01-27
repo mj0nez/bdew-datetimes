@@ -8,10 +8,10 @@ The implementation considers the publications of the **BDEW** (Bundesverband der
 ### Current highlights:
 * BDEW-holiday calendar
     * allows dict like evaluation of dates and datetimes and contains all holidays considered by the BDEW
-
+* Gas-Day / Market Day evaluation
 
 ### Future Scope:
-* Gas-Day / Market Day evaluation
+
 * providing subdivision holiday calendars to allow granular load profiles
 
 

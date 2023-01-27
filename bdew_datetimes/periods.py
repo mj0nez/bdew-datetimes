@@ -30,7 +30,7 @@ a static calendar object that is used (module) internally
 
 class DayType(str, Enum):
     """
-    Enum to differentiate between calendar days and working days
+    An enum to differentiate between calendar days and working days.
     """
 
     WORKING_DAY = "WT"  #: working day, German "Werktag"

@@ -122,8 +122,8 @@ def is_bdew_working_day(candidate: date) -> bool:
 def get_next_working_day(start_date: date) -> date:
     """
     If start_date is a working day, the next (+1) working day is returned.
-    If start_date is a BDEW holiday or a weekend, then the working day
-    after the first working day after dt is returned.
+    If this day is a BDEW holiday or falls on a weekend, the next working day
+    is returned.
     """
     result = start_date + datetime.timedelta(
         days=1

@@ -4,11 +4,11 @@ import pytest  # type:ignore[import]
 
 from bdew_datetimes.german_strom_and_gas_tag import (
     GERMAN_TIME_ZONE,
+    Division,
     has_no_utc_offset,
     is_gastag_limit,
     is_stromtag_limit,
     is_xtag_limit,
-    Division,
 )
 
 
@@ -195,28 +195,42 @@ def test_is_xtag_limit_raises(dt: datetime, division: Division):
             False,
         ),
         pytest.param(
-            datetime(2020, 1, 1, 5, 0, 0, tzinfo=timezone.utc), Division.GAS, True
+            datetime(2020, 1, 1, 5, 0, 0, tzinfo=timezone.utc),
+            Division.GAS,
+            True,
         ),
         pytest.param(
-            datetime(2020, 1, 1, 4, 0, 0, tzinfo=timezone.utc), Division.GAS, False
+            datetime(2020, 1, 1, 4, 0, 0, tzinfo=timezone.utc),
+            Division.GAS,
+            False,
         ),
         pytest.param(
-            datetime(2022, 3, 26, 5, 0, 0, 0, tzinfo=timezone.utc), Division.GAS, True
-        ),
-         pytest.param(
-            datetime(2020, 1, 1, 0, 0, 0, tzinfo=timezone.utc), Division.STROM, False
-        ),
-        pytest.param(
-            datetime(2019, 12, 31, 23, 0, 0, tzinfo=timezone.utc), Division.STROM, True
+            datetime(2022, 3, 26, 5, 0, 0, 0, tzinfo=timezone.utc),
+            Division.GAS,
+            True,
         ),
         pytest.param(
-            datetime(2019, 12, 31, 22, 0, 0, tzinfo=timezone.utc), Division.STROM, False
+            datetime(2020, 1, 1, 0, 0, 0, tzinfo=timezone.utc),
+            Division.STROM,
+            False,
         ),
         pytest.param(
-            datetime(2010, 1, 1, 0, 0, 0, tzinfo=GERMAN_TIME_ZONE), Division.STROM, True
+            datetime(2019, 12, 31, 23, 0, 0, tzinfo=timezone.utc),
+            Division.STROM,
+            True,
+        ),
+        pytest.param(
+            datetime(2019, 12, 31, 22, 0, 0, tzinfo=timezone.utc),
+            Division.STROM,
+            False,
+        ),
+        pytest.param(
+            datetime(2010, 1, 1, 0, 0, 0, tzinfo=GERMAN_TIME_ZONE),
+            Division.STROM,
+            True,
         ),
     ],
 )
-def test_is_xtag_limit(dt: datetime, division: int, expected):
+def test_is_xtag_limit(dt: datetime, division: Division, expected):
     actual = is_xtag_limit(dt, division)
     assert actual == expected

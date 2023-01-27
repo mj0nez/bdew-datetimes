@@ -71,7 +71,7 @@ class Period:
 
     number_of_days: int
     """
-    number of days (might be any value <0, >0 or ==0
+    number of days (might be any value <0, >0 or ==0)
     """
     day_type: DayType
     """

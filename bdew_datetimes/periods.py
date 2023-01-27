@@ -112,7 +112,7 @@ class Period:
 def is_bdew_working_day(candidate: date) -> bool:
     """
     Returns true if and only if the given candidate is a day relevant for the period calculation.
-    Returns false if the given candidate is either a BDEW holiday or a saturday or sunday.
+    Returns false if the given candidate is either a BDEW holiday, a saturday or sunday.
     """
     if candidate in _bdew_calendar:
         return False

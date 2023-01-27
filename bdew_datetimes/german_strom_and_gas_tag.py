@@ -13,7 +13,7 @@ from typing import Callable
 # datasource for timezone information.
 from pytz import timezone, utc
 
-berlin = timezone("Europe/Berlin")
+GERMAN_TIME_ZONE = timezone("Europe/Berlin")
 
 
 class Division(Enum):
@@ -29,7 +29,7 @@ def _get_german_local_time(date_time: datetime) -> time:
     """
     returns the current german local time for the given datetime object
     """
-    german_local_datetime = date_time.astimezone(berlin)
+    german_local_datetime = date_time.astimezone(GERMAN_TIME_ZONE)
     return german_local_datetime.time()
 
 

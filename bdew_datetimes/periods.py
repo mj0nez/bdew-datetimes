@@ -145,7 +145,7 @@ def add_frist(start: date, period: Period) -> date:
     # result is now the "Beginndatum" of the Fristenberechnung
     if period.day_type == DayType.CALENDAR_DAY:
         return result + datetime.timedelta(days=period.number_of_days)
-    # day_type is workingday
+    # day_type is working day
     if period.number_of_days == 0:
         return result
     if period.number_of_days > 0:

@@ -260,7 +260,7 @@ def test_add_frist(start: date, frist: Period, expected: date):
             date(2023, 11, 1),
             MonthType.LIEFERMONAT,
             date(2023, 11, 28),
-            id="18ter Werktag des (Liefer)Monats Januar 2023; Deklarationsmitteilung",
+            id="18ter Werktag des (Liefer)Monats November 2023; Deklarationsmitteilung",
         ),
         pytest.param(
             14,

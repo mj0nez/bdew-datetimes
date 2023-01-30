@@ -9,6 +9,7 @@ from bdew_datetimes.periods import (
     _DayTyp,
     add_frist,
     get_next_working_day,
+    get_previous_working_day,
 )
 
 
@@ -71,6 +72,30 @@ def test_instantiation_with_invalid_str():
 )
 def test_get_next_working_day(start: date, expected: date):
     actual = get_next_working_day(start)
+    assert actual == expected
+
+
+@pytest.mark.parametrize(
+    "start,expected",
+    [
+        pytest.param(
+            date(2023, 1, 1),
+            date(2022, 12, 30),
+        ),
+        pytest.param(
+            date(2023, 1, 3),
+            date(2023, 1, 2),
+            id="regular previous working day",
+        ),
+        pytest.param(
+            date(2023, 1, 9),
+            date(2023, 1, 5),
+            id="Skip Hl.drei Könige (subdivision holiday) and weekend",
+        ),
+    ],
+)
+def test_get_previous_working_day(start: date, expected: date):
+    actual = get_previous_working_day(start)
     assert actual == expected
 
 

@@ -5,10 +5,12 @@ import pytest  # type:ignore[import]
 from bdew_datetimes.periods import (
     DayType,
     EndDateType,
+    MonthType,
     Period,
     _DayTyp,
     add_frist,
     get_next_working_day,
+    get_nth_working_day_of_month,
     get_previous_working_day,
 )
 
@@ -226,4 +228,128 @@ def test_get_previous_working_day(start: date, expected: date):
 )
 def test_add_frist(start: date, frist: Period, expected: date):
     actual = add_frist(start, frist)
+    assert actual == expected
+
+
+@pytest.mark.parametrize(
+    "number,start,month_type,expected",
+    [
+        pytest.param(
+            14,
+            date(2023, 1, 1),
+            MonthType.LIEFERMONAT,
+            date(2023, 1, 20),
+            id="14ter Werktag des (Liefer)Monats Januar 203; BK-Summen",
+        ),
+        pytest.param(
+            16,
+            date(2023, 1, 1),
+            MonthType.LIEFERMONAT,
+            date(2023, 1, 24),
+            id="16ter Werktag des (Liefer)Monats Januar 2023; Zuordnungslisten",
+        ),
+        pytest.param(
+            17,
+            date(2023, 1, 1),
+            MonthType.LIEFERMONAT,
+            date(2023, 1, 25),
+            id="17ter Werktag des (Liefer)Monats Januar 2023; BK-Zuordnungsliste, Deklarationsliste",
+        ),
+        pytest.param(
+            18,
+            date(2023, 11, 1),
+            MonthType.LIEFERMONAT,
+            date(2023, 11, 28),
+            id="18ter Werktag des (Liefer)Monats Januar 2023; Deklarationsmitteilung",
+        ),
+        pytest.param(
+            14,
+            date(2023, 2, 1),
+            MonthType.LIEFERMONAT,
+            date(2023, 2, 20),
+            id="14ter Werktag des (Liefer)Monats Februar 2023; BK-Summen",
+        ),
+        pytest.param(
+            16,
+            date(2023, 2, 1),
+            MonthType.LIEFERMONAT,
+            date(2023, 2, 22),
+            id="16ter Werktag des (Liefer)Monats Februar 2023; Zuordnungslisten",
+        ),
+        pytest.param(
+            17,
+            date(2023, 2, 1),
+            MonthType.LIEFERMONAT,
+            date(2023, 2, 23),
+            id="17ter Werktag des (Liefer)Monats Februar 2023; BK-Zuordnungsliste, Deklarationsliste",
+        ),
+        pytest.param(
+            18,
+            date(2023, 2, 1),
+            MonthType.LIEFERMONAT,
+            date(2023, 2, 24),
+            id="18ter Werktag des (Liefer)Monats Februar 2023; Deklarationsmitteilung",
+        ),
+        pytest.param(
+            21,
+            date(2023, 1, 1),
+            MonthType.FRISTENMONAT,
+            date(2023, 3, 1),
+            id="21ter Werktag des Fristenmonats Januar 2023;",
+        ),
+        pytest.param(
+            21,
+            date(2023, 2, 1),
+            MonthType.FRISTENMONAT,
+            date(2023, 3, 30),
+            id="21ter Werktag des Fristenmonats Februar; NKP",
+        ),
+        pytest.param(
+            26,
+            date(2022, 12, 1),
+            MonthType.FRISTENMONAT,
+            date(2023, 2, 7),
+            id="26ter Werktag des Fristenmonats Dezember 2022",
+        ),
+        pytest.param(
+            26,
+            date(2023, 1, 1),
+            MonthType.FRISTENMONAT,
+            date(2023, 3, 9),
+            id="26ter Werktag des Fristenmonats Januar 2023",
+        ),
+        pytest.param(
+            26,
+            date(2023, 6, 1),
+            MonthType.FRISTENMONAT,
+            date(2023, 8, 7),
+            id="26ter Werktag des Fristenmonats Juni 2023; NKP MG-Überlappung",
+        ),
+        pytest.param(
+            30,
+            date(2023, 4, 1),
+            MonthType.FRISTENMONAT,
+            date(2023, 6, 15),
+            id="30ter Werktag des Fristenmonats April 2023; letztmalige Datenabnahme beim BIKO",
+        ),
+        pytest.param(
+            42,
+            date(2022, 11, 1),
+            MonthType.FRISTENMONAT,
+            date(2023, 1, 31),
+            id="42ter Werktag des Fristenmonats November 2022; BK-Abrechnung",
+        ),
+        pytest.param(
+            42,
+            date(2023, 7, 1),
+            MonthType.FRISTENMONAT,
+            date(2023, 9, 29),
+            id="42ter Werktag des Fristenmonats Juli 2023; BK-Abrechnung",
+        ),
+    ],
+)
+def test_get_nth_working_day_of_month(
+    number: int, start: date, month_type: MonthType, expected: date
+):
+    actual = get_nth_working_day_of_month(number, month_type, start)
     assert actual == expected

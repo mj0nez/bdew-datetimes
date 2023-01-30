@@ -134,6 +134,21 @@ def get_next_working_day(start_date: date) -> date:
     return result
 
 
+def get_previous_working_day(start_date: date) -> date:
+    """
+    If start_date is a working day, the previous (-1) working day is returned.
+    If this day is a BDEW holiday or falls on a weekend, the previous working day
+    is returned.
+    """
+    result = start_date - datetime.timedelta(
+        days=1
+    )  # in any case the calculation starts at least at the next day
+    while not is_bdew_working_day(result):
+        # if the previous day is a holiday, then we subtract days until we find a working day
+        result -= datetime.timedelta(days=1)
+    return result
+
+
 def add_frist(start: date, period: Period) -> date:
     """
     Returns the date that is period after start.

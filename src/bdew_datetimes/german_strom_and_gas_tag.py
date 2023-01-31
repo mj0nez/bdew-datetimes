@@ -11,9 +11,9 @@ from typing import Callable
 # it. In some cases "Europe/Berlin" might be available, but generally it's not,
 # and it's PITA to manually define timezones. So we're using pytz as a
 # datasource for timezone information.
-from pytz import timezone, utc
+from pytz import utc
 
-GERMAN_TIME_ZONE = timezone("Europe/Berlin")
+from bdew_datetimes import GERMAN_TIME_ZONE
 
 
 class Division(Enum):

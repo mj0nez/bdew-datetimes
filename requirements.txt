@@ -17,7 +17,9 @@ pymeeus==0.5.12
     #   convertdate
     #   holidays
 python-dateutil==2.8.2
-    # via holidays
+    # via
+    #   -r requirements.in
+    #   holidays
 pytz==2022.7.1
     # via -r requirements.in
 six==1.16.0

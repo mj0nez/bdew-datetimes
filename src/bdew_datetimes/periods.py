@@ -8,16 +8,17 @@ import sys
 from dataclasses import dataclass
 from datetime import date
 from enum import Enum
+from typing import Optional, Union
 
+from dateutil.relativedelta import relativedelta
 from holidays import SAT, SUN
 
-from bdew_datetimes import create_bdew_calendar
+from bdew_datetimes import GERMAN_TIME_ZONE, create_bdew_calendar
 
 try:
-    from typing import Literal, Union
+    from typing import Literal
 except ImportError:  # for Python 3.7
-    from typing import Union
-
+    pass
 
 # https://www.bundesnetzagentur.de/DE/Beschlusskammern/1_GZ/BK6-GZ/2020/BK6-20-160/Mitteilung_Nr_2/Leseversion_GPKE.pdf
 # pages 15 onwards
@@ -176,4 +177,67 @@ def add_frist(start: date, period: Period) -> date:
             result -= datetime.timedelta(days=1)
             if is_bdew_working_day(result):
                 days_subtracted += 1
+    return result
+
+
+class MonthType(Enum):
+    """
+    When calculating periods defined as 'nth working day of a month' the
+    BNetzA regulations distinguish between two types of month which are
+    modelled in this enum.
+    Some periods refer to the "Liefermonat", others to the "Fristenmonat".
+    """
+
+    LIEFERMONAT = 1
+    """
+    The "Liefermonat" is the month in which the supply starts.
+    """
+    FRISTENMONAT = 2
+    """
+    The grid operators prefer a key date based handling of supply contracts.
+    The key date in these cases is usually expressed as a specific working day
+    in the so called "Fristenmonat".
+    The "Fristenmonat" starts at the first day of the month
+    _before_ the "Liefermonat".
+    Quote: 'Nach der Festlegung BK6-06-009 (GPKE) der Monat vor dem Liefermonat.'
+    """
+    # pylint:disable=line-too-long
+    # source: https://www.bundesnetzagentur.de/DE/Beschlusskammern/1_GZ/BK6-GZ/_bis_2010/2006/BK6-06-009/BK6-06-009_Beschluss_download.pdf?__blob=publicationFile&v=5
+
+
+def get_nth_working_day_of_month(
+    number_of_working_day_in_month: int,
+    month_type: MonthType = MonthType.LIEFERMONAT,
+    start: Optional[date] = None,
+) -> date:
+    """
+    Returns the nth working of the month, starting at start.
+    If start is None, then we use the local date/start of month in Germany.
+    Only year and month of the provided start date are taken into account.
+    The date.day is always discarded.
+
+    This function is useful if you're dealing with statutory periods from the
+    GPKE/MaBiS that are defined as "working days since start of month".
+    """
+    if start is None:
+        start = GERMAN_TIME_ZONE.localize(datetime.datetime.utcnow()).date()
+    if month_type == MonthType.LIEFERMONAT:
+        # returns the "nter Werktag des Liefermonats"
+        start = get_previous_working_day(start.replace(day=1))
+        period = Period(
+            number_of_days=number_of_working_day_in_month,
+            day_type=DayType.WORKING_DAY,
+            end_date_type=EndDateType.INCLUSIVE,
+        )
+        result = add_frist(start, period)
+    elif month_type == MonthType.FRISTENMONAT:
+        # returns the "nter Werktag des Fristenmonats"
+        start_of_next_month = start.replace(day=1) + relativedelta(months=1)
+        result = get_nth_working_day_of_month(
+            number_of_working_day_in_month,
+            month_type=MonthType.LIEFERMONAT,
+            start=start_of_next_month,
+        )
+    else:
+        raise ValueError(f"Unhandled month_type {month_type}")
     return result

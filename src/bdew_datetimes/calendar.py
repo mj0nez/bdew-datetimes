@@ -24,7 +24,6 @@ class BdewDefinedHolidays(HolidayBase):
         super().__init__(observed=observed, **kwargs)
 
     def _populate(self, year):
-
         self[date(year, DEC, 24)] = "Heiligabend"
         self[date(year, DEC, 31)] = "Silvester"
 
@@ -59,7 +58,6 @@ def create_bdew_calendar() -> HolidaySum:
     # Therefore, we add all subdivisions of Germany to the BDEW specific holidays.
     # Currently, in Germany holidays are not observed.
     for subdivision in Germany.subdivisions:
-
         # the method __add__ expects a Union[int, "HolidayBase", "HolidaySum"] as `other`
         # here, we're dealing with a child instance of HolidayBase
         result += Germany(

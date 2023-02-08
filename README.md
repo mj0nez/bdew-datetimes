@@ -22,7 +22,7 @@ The implementation considers the publications of the **BDEW** (Bundesverband der
 
 Install the package from [pypi](https://pypi.org/project/bdew-datetimes/):
 ```bash
-pip install bdew_datetimes
+pip install bdew-datetimes
 ```
 
 ### Check if a date is a _specific_ BDEW Holidays

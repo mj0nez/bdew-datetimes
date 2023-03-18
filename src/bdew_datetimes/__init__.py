@@ -6,5 +6,3 @@ from pytz import timezone
 from .calendar import create_bdew_calendar
 
 GERMAN_TIME_ZONE = timezone("Europe/Berlin")
-
-__version__ = "0.3.5"

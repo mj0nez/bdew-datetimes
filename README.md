@@ -1,4 +1,5 @@
 # bdew_datetimes
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/mj0nez/bdew-datetimes/packaging_test.yml?style=plastic)![PyPI - Python Version](https://img.shields.io/pypi/pyversions/bdew-datetimes?style=plastic)![PyPI - License](https://img.shields.io/pypi/l/bdew-datetimes?style=plastic)![PyPI](https://img.shields.io/pypi/v/bdew-datetimes?style=plastic)
 
 A collection of utils to work with datetimes and holidays in the German energy
 market and is based on the [python-holiday](https://github.com/dr-prodigy/python-holidays) package.

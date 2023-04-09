@@ -24,3 +24,5 @@ pytz==2023.3
     # via -r requirements.in
 six==1.16.0
     # via python-dateutil
+tzdata==2023.3
+    # via holidays

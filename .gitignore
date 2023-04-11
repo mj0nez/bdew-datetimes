@@ -57,3 +57,5 @@ dask-worker-space/
 .idea/
 .vscode/
 *.code-workspace
+
+src/_bdew_datetimes_version.py

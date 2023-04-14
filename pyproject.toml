@@ -30,7 +30,10 @@ name = "bdew_datetimes"
 description = "Generate and work with holidays of the BDEW-Calendar for power and gas in Germany"
 license = { text = "MIT" }
 requires-python = ">=3.7"
-authors = [{ name = "Marcel Johannesmann" }]
+authors = [
+    { name = "Marcel Johannesmann", email = "mj0nez@fn.de" },
+    { name = "Konstantin Klein" },
+]
 keywords = ["bdew", "edi@energy"]
 classifiers = [
     "Development Status :: 4 - Beta",

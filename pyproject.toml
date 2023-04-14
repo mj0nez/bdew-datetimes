@@ -71,7 +71,7 @@ version = "{version}"
 '''
 
 [tool.hatch.build.targets.sdist]
-exclude = ["/unittests"]
+exclude = ["tests"]
 
 [tool.hatch.build.targets.wheel]
 only-include = ["src"]

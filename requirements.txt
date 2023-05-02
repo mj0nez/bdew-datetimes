@@ -4,16 +4,12 @@
 #
 #    pip-compile requirements.in
 #
-convertdate==2.4.0
-    # via holidays
 hijri-converter==2.3.1
     # via holidays
-holidays==0.23
+holidays==0.24
     # via -r requirements.in
 korean-lunar-calendar==0.3.1
     # via holidays
-pymeeus==0.5.12
-    # via convertdate
 python-dateutil==2.8.2
     # via
     #   -r requirements.in

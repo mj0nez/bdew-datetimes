@@ -4,14 +4,13 @@
 #
 #    pip-compile '.\requirements.in'
 #
-holidays<0.28 ; python_version < "3.8"
-holidays>=0.28 ; python_version >= "3.8"
-    # via -r .\requirements.in
+holidays==0.33
+    # via -r requirements.in
 python-dateutil==2.8.2
     # via
-    #   -r .\requirements.in
+    #   -r requirements.in
     #   holidays
-pytz==2023.3
-    # via -r .\requirements.in
+pytz==2023.3.post1
+    # via -r requirements.in
 six==1.16.0
     # via python-dateutil

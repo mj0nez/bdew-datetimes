@@ -1,11 +1,6 @@
 name: "Linters"
 
-on:
-  # run linters on any push to main and any open pull request
-  push:
-    branches:
-      - main
-  pull_request: {}
+on: [push]
 jobs:
   pylint:
     name: Python Code Quality and Lint

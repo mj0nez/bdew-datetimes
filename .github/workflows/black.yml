@@ -1,11 +1,6 @@
 name: "Black"
 
-on:
-  # check formatting on any push to main and any open pull request
-  push:
-    branches:
-      - main
-  pull_request: {}
+on: [push]
 jobs:
   black:
     runs-on: ${{ matrix.os }}

@@ -1,11 +1,6 @@
 name: "Packaging Test"
 
-on:
-  # check packaging on any push to main and any open pull request
-  push:
-    branches:
-      - main
-  pull_request: {}
+on: [push]
 jobs:
   coverage:
     runs-on: ${{ matrix.os }}

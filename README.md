@@ -120,3 +120,7 @@ Shifting holidays to the next weekday if they fall on a weekend is currently not
 ## License
 
 This library is licensed under the *MIT* license, see the [LICENSE file](LICENSE).
+
+## Users
+This library is used by the following projects:
+- [Hochfrequenz Fristenkalender](https://www.hochfrequenz.de/#fristenkalender)

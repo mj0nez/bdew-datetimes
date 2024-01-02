@@ -27,6 +27,9 @@ def test_bdew_holidays(expected_holiday: date):
         pytest.param(date(2022, 1, 1), True, id="Neujahr 2022 (bundesweit)"),
         pytest.param(date(2022, 1, 2), False, id="a regular Sunday"),
         pytest.param(date(2022, 8, 15), True, id="Mariä Himmelfahrt (BY, SL)"),
+        pytest.param(date(2024, 8, 15), True, id="Mariä Himmelfahrt (BY, SL)"),
+        pytest.param(date(2024, 11, 20), True, id="Buß- und Bettag (SN)"),
+        pytest.param(date(2024, 12, 31), True, id="Silvester 2024 (BDEW)"),
     ],
 )
 def test_create_bdew_calendar(test_date: date, expected_is_in_calendar: bool):

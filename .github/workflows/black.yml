@@ -1,6 +1,10 @@
 name: "Black"
 
-on: [push]
+on:
+  pull_request:
+  push:
+    branches:
+      - main
 jobs:
   black:
     runs-on: ${{ matrix.os }}

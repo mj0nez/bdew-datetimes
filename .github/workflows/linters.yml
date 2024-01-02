@@ -1,6 +1,10 @@
 name: "Linters"
 
-on: [push]
+on:
+  pull_request:
+  push:
+    branches:
+      - main
 jobs:
   pylint:
     name: Python Code Quality and Lint

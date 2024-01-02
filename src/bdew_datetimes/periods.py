@@ -52,7 +52,7 @@ class EndDateType(Enum):
 
     EXCLUSIVE = 2
     """
-    If a constract ends with the year 2022 and the end date is denoted as "2023-01-01",
+    If a contract ends with the year 2022 and the end date is denoted as "2023-01-01",
     then the end date is exclusive. Most end dates handled by technical systems are meant
     exclusively.
     """

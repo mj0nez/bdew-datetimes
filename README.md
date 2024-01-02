@@ -111,7 +111,7 @@ assert get_nth_working_day_of_month(42, month_type=MonthType.FRISTENMONAT, start
 
 The BDEW considers all days as holidays, which are nationwide holidays and days, which are a holiday in at least one state.
 Furthermore, the 24. and the 31. December are holidays as well.
-Therefore, this package utilizes a composition of all available german holiday calendars amd adds the two additional days.
+Therefore, this package utilizes the composition of all available german holiday calendars and adds the two additional days.
 
 Shifting holidays to the next weekday if they fall on a weekend is currently not considered.  
 

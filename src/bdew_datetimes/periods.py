@@ -4,21 +4,15 @@ periods is a module that helps to calculate statutory periods
 It is based on the chapter "Fristenberechnung" in the GPKE.
 """
 import datetime
-import sys
 from dataclasses import dataclass
 from datetime import date
 from enum import Enum
-from typing import Optional, Union
+from typing import Literal, Optional, Union
 
 from dateutil.relativedelta import relativedelta
 from holidays import SAT, SUN
 
 from bdew_datetimes import GERMAN_TIME_ZONE, create_bdew_calendar
-
-try:
-    from typing import Literal
-except ImportError:  # for Python 3.7
-    pass
 
 # https://www.bundesnetzagentur.de/DE/Beschlusskammern/1_GZ/BK6-GZ/2020/BK6-20-160/Mitteilung_Nr_2/Leseversion_GPKE.pdf
 # pages 15 onwards
@@ -58,10 +52,7 @@ class EndDateType(Enum):
     """
 
 
-if sys.version_info.minor > 7:
-    _DayTyp = Union[DayType, Literal["WT", "KT"]]
-else:
-    _DayTyp = Union[DayType, str]  # type:ignore[misc]
+_DayTyp = Union[DayType, Literal["WT", "KT"]]
 
 
 @dataclass

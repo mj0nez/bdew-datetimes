@@ -4,7 +4,7 @@
 #
 #    pip-compile requirements.in
 #
-holidays==0.40
+holidays==0.41
     # via -r requirements.in
 python-dateutil==2.8.2
     # via

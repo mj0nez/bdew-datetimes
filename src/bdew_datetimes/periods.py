@@ -3,6 +3,7 @@ periods is a module that helps to calculate statutory periods
 ("gesetzliche Fristen") in the German energy market.
 It is based on the chapter "Fristenberechnung" in the GPKE.
 """
+
 import datetime
 from dataclasses import dataclass
 from datetime import date

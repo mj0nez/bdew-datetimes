@@ -2,6 +2,7 @@
 contains the business logic (namely the BDEW calendar information)
 
 """
+
 from datetime import date
 
 from holidays import HolidayBase, HolidaySum

@@ -155,7 +155,7 @@ def test_get_previous_working_day(start: date, expected: date):
             Period(
                 6,
                 DayType.WORKING_DAY,
-                end_date_type=EndDateType.INCLUSIVE
+                end_date_type=EndDateType.INCLUSIVE,
                 # the abmeldedatum is the inclusive end of a contract
             ),
             date(2016, 7, 12),
@@ -166,7 +166,7 @@ def test_get_previous_working_day(start: date, expected: date):
             Period(
                 -6,
                 DayType.WORKING_DAY,
-                end_date_type=EndDateType.INCLUSIVE
+                end_date_type=EndDateType.INCLUSIVE,
                 # the abmeldedatum is the inclusive end of a contract
             ),
             date(2016, 7, 4),
@@ -181,7 +181,7 @@ def test_get_previous_working_day(start: date, expected: date):
             Period(
                 7,
                 DayType.WORKING_DAY,
-                end_date_type=EndDateType.EXCLUSIVE
+                end_date_type=EndDateType.EXCLUSIVE,
                 # lieferbeginn is the exclusive end of the previous contract
             ),
             date(2016, 7, 14),
@@ -192,7 +192,7 @@ def test_get_previous_working_day(start: date, expected: date):
             Period(
                 -7,
                 DayType.WORKING_DAY,
-                end_date_type=EndDateType.EXCLUSIVE
+                end_date_type=EndDateType.EXCLUSIVE,
                 # lieferbeginn is the exclusive end of the previous contract
             ),
             date(2016, 7, 4),
@@ -207,7 +207,7 @@ def test_get_previous_working_day(start: date, expected: date):
             Period(
                 10,
                 DayType.WORKING_DAY,
-                end_date_type=EndDateType.EXCLUSIVE
+                end_date_type=EndDateType.EXCLUSIVE,
                 # lieferbeginn is the exclusive end of the previous contract
             ),
             date(2016, 7, 19),
@@ -218,7 +218,7 @@ def test_get_previous_working_day(start: date, expected: date):
             Period(
                 -10,
                 DayType.WORKING_DAY,
-                end_date_type=EndDateType.EXCLUSIVE
+                end_date_type=EndDateType.EXCLUSIVE,
                 # lieferbeginn is the exclusive end of the previous contract
             ),
             date(2016, 7, 4),

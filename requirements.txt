@@ -10,7 +10,7 @@ python-dateutil==2.8.2
     # via
     #   -r requirements.in
     #   holidays
-pytz==2023.4
+pytz==2024.1
     # via -r requirements.in
 six==1.16.0
     # via python-dateutil

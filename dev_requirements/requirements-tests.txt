@@ -13,6 +13,4 @@ packaging==23.0
 pluggy==1.5.0
     # via pytest
 pytest==8.2.2
-    # via -r requirements-tests.in
-tomli==2.0.1
-    # via pytest
+    # via -r dev_requirements/requirements-tests.in

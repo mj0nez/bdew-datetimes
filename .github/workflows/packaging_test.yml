@@ -6,7 +6,7 @@ on:
     branches:
       - main
 jobs:
-  packaging:
+  test_packaging:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:

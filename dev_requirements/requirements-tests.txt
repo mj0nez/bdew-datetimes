@@ -4,6 +4,8 @@
 #
 #    pip-compile requirements-tests.in
 #
+exceptiongroup==1.2.1
+    # via pytest
 iniconfig==2.0.0
     # via pytest
 packaging==23.0

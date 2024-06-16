@@ -1,6 +1,7 @@
 name: Dependabot auto-approve / -merge
 on: pull_request
 
+
 jobs:
   dependabot:
     permissions:

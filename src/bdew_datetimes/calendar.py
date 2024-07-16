@@ -6,7 +6,7 @@ contains the business logic (namely the BDEW calendar information)
 from datetime import date
 
 from holidays import HolidayBase, HolidaySum
-from holidays.constants import DEC
+from holidays.constants import APR, DEC
 from holidays.countries.germany import Germany
 
 
@@ -27,6 +27,10 @@ class BdewDefinedHolidays(HolidayBase):
     def _populate(self, year):
         self[date(year, DEC, 24)] = "Heiligabend"
         self[date(year, DEC, 31)] = "Silvester"
+        if year == 2025:
+            self[date(2025, APR, 4)] = (
+                "Sonderfeiertag"  # Anlässlich der Einführung des 24h Lieferantenwechsels
+            )
 
 
 def create_bdew_calendar() -> HolidaySum:

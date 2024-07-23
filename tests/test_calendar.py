@@ -46,6 +46,7 @@ def test_holiday_calendar_obj():
 
     assert not calendar.observed
     assert calendar.country == "DE"
+    assert calendar.language == "de"
 
 
 @pytest.mark.parametrize(

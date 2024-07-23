@@ -54,11 +54,11 @@ def create_bdew_calendar() -> HolidaySum:
     """
 
     # First we need the BDEW specific holidays.
-    calendar = BdewDefinedHolidays()
+    calendar = BdewDefinedHolidays(language="de")
 
     # the type is wrong at assignment but correct after the first loop iteration
     result: HolidaySum = calendar  # type:ignore[assignment]
-
+    original_language_before_adding_subdivisions = result.language
     # If a day is holiday in any subdivision, the holiday is valid nationwide.
     # Therefore, we add all subdivisions of Germany to the BDEW specific holidays.
     # Currently, in Germany holidays are not observed.
@@ -66,7 +66,13 @@ def create_bdew_calendar() -> HolidaySum:
         # the method __add__ expects a Union[int, "HolidayBase", "HolidaySum"] as `other`
         # here, we're dealing with a child instance of HolidayBase
         result += Germany(
-            subdiv=subdivision, observed=False
+            subdiv=subdivision, observed=False, language="de"
         )  # type:ignore[assignment]
-
+    if result.language is None:
+        # This is a workaround to a problem in holidays 0.20-0.53 (at least):
+        # When adding the subdivisions, the language attribute is lost,
+        # although holiday base and subdivision share the same language.
+        # The problem happens here:
+        # https://github.com/vacanza/python-holidays/blob/v0.53/holidays/holiday_base.py#L1164
+        result.language = original_language_before_adding_subdivisions
     return result

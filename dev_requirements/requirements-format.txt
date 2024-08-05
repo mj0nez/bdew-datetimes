@@ -4,12 +4,12 @@
 #
 #    pip-compile dev_requirements/requirements-format.in
 #
-black==24.4.2
-    # via -r dev_requirements/requirements-format.in
+black==24.8.0
+    # via -r requirements-format.in
 click==8.1.7
     # via black
 isort==5.13.2
-    # via -r dev_requirements/requirements-format.in
+    # via -r requirements-format.in
 mypy-extensions==1.0.0
     # via black
 packaging==24.1

@@ -6,7 +6,7 @@
 #
 backports-tarfile==1.2.0
     # via jaraco-context
-build==1.2.1
+build==1.2.2
     # via -r dev_requirements/requirements-packaging.in
 certifi==2024.7.4
     # via requests
@@ -22,11 +22,8 @@ idna==3.7
     # via requests
 importlib-metadata==8.0.0
     # via
-    #   build
     #   keyring
     #   twine
-importlib-resources==6.4.0
-    # via keyring
 jaraco-classes==3.4.0
     # via keyring
 jaraco-context==5.3.0
@@ -75,17 +72,11 @@ rich==13.7.1
     # via twine
 secretstorage==3.3.3
     # via keyring
-tomli==2.0.1
-    # via build
 twine==5.1.1
     # via -r dev_requirements/requirements-packaging.in
-typing-extensions==4.12.2
-    # via rich
 urllib3==2.2.2
     # via
     #   requests
     #   twine
 zipp==3.19.2
-    # via
-    #   importlib-metadata
-    #   importlib-resources
+    # via importlib-metadata

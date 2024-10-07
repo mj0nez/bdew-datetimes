@@ -1,6 +1,6 @@
 [tool.black]
 line-length = 79
-target-version = ['py37', 'py38', 'py39', 'py310', 'py311', 'py312']
+target-version = ['py37', 'py38', 'py39', 'py310', 'py311', 'py312', 'py313']
 exclude = '''
 /(
     \.eggs
@@ -48,6 +48,7 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
     "holidays>=0.16,<0.28;python_version<'3.8'",
@@ -58,7 +59,6 @@ dependencies = [
 dynamic = ["readme", "version"]
 
 [project.optional-dependencies]
-coverage = []
 formatting = [
     "black==24.10.0",
     "isort==5.13.2"

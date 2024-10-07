@@ -4,13 +4,13 @@
 #
 #    pip-compile --extra=test_packaging pyproject.toml
 #
-holidays==0.57 ; python_version >= "3.8"
-    # via bdew_datetimes (pyproject.toml)
+holidays==0.58
+    # via -r requirements.in
 python-dateutil==2.9.0.post0
     # via
-    #   bdew_datetimes (pyproject.toml)
+    #   -r requirements.in
     #   holidays
 pytz==2024.2
-    # via bdew_datetimes (pyproject.toml)
+    # via -r requirements.in
 six==1.16.0
     # via python-dateutil

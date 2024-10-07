@@ -57,6 +57,30 @@ dependencies = [
 ]
 dynamic = ["readme", "version"]
 
+[project.optional-dependencies]
+coverage = []
+formatting = [
+    "black==24.8.0",
+    "isort==5.13.2"
+]
+linting = [
+    "pylint==3.3.1"
+]
+spell_check = [
+    "codespell==2.3.0"
+]
+packaging = [
+    "build==1.2.2",
+    "twine==5.1.1"
+]
+tests = [
+    "pytest==8.3.3"
+]
+type_check = [
+    "mypy==1.11.2",
+    "types-python-dateutil==2.9.0.20240906",
+    "types-pytz==2024.2.0.20240913"
+]
 
 [project.urls]
 Changelog = "https://github.com/mj0nez/bdew-datetimes/releases"

@@ -50,7 +50,8 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
-    "holidays>=0.59;python_version>='3.8'",
+    "holidays>=0.59;python_version>='3.9'",
+
     "pytz>=2022.7.1",
     "python-dateutil",
 ]

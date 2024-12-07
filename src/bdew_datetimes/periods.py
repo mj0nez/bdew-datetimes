@@ -11,7 +11,7 @@ from enum import Enum
 from typing import Literal, Optional, Union
 
 from dateutil.relativedelta import relativedelta
-from holidays import SAT, SUN
+from holidays import SAT, SUN  # type:ignore[attr-defined]
 
 from bdew_datetimes import GERMAN_TIME_ZONE, create_bdew_calendar
 

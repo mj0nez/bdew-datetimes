@@ -4,9 +4,10 @@ contains the business logic (namely the BDEW calendar information)
 """
 
 from datetime import date
+from typing import Any
 
 from holidays import HolidayBase, HolidaySum
-from holidays.constants import APR, DEC
+from holidays.constants import APR, DEC  # type:ignore[attr-defined]
 from holidays.countries.germany import Germany
 
 
@@ -21,10 +22,10 @@ class BdewDefinedHolidays(HolidayBase):
 
     """
 
-    def __init__(self, observed: bool = False, **kwargs):
+    def __init__(self, observed: bool = False, **kwargs: Any) -> None:
         super().__init__(observed=observed, **kwargs)
 
-    def _populate(self, year):
+    def _populate(self, year: int) -> None:
         self[date(year, DEC, 24)] = "Heiligabend"
         self[date(year, DEC, 31)] = "Silvester"
         if year == 2025:

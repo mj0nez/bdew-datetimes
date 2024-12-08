@@ -1,6 +1,6 @@
 from datetime import date, datetime
 
-import pytest  # type:ignore[import]
+import pytest
 from holidays import DateLike
 
 from bdew_datetimes.calendar import BdewDefinedHolidays, create_bdew_calendar
@@ -15,7 +15,7 @@ from bdew_datetimes.calendar import BdewDefinedHolidays, create_bdew_calendar
         pytest.param(date(2070, 12, 24), id="arbitrary Heiligabend"),
     ],
 )
-def test_bdew_holidays(expected_holiday: date):
+def test_bdew_holidays(expected_holiday: date) -> None:
     calendar = BdewDefinedHolidays()
     assert expected_holiday in calendar
 
@@ -33,7 +33,9 @@ def test_bdew_holidays(expected_holiday: date):
         pytest.param(date(2025, 4, 4), True, id="Sonderfeiertag 2025 (BDEW)"),
     ],
 )
-def test_create_bdew_calendar(test_date: date, expected_is_in_calendar: bool):
+def test_create_bdew_calendar(
+    test_date: date, expected_is_in_calendar: bool
+) -> None:
     calendar = create_bdew_calendar()
     if expected_is_in_calendar:
         assert test_date in calendar
@@ -41,7 +43,7 @@ def test_create_bdew_calendar(test_date: date, expected_is_in_calendar: bool):
         assert test_date not in calendar
 
 
-def test_holiday_calendar_obj():
+def test_holiday_calendar_obj() -> None:
     calendar = create_bdew_calendar()
 
     assert not calendar.observed
@@ -62,6 +64,6 @@ def test_holiday_calendar_obj():
         pytest.param(int(datetime(2022, 1, 1, 22, 16, 59).timestamp())),
     ],
 )
-def test_holiday_in_calendar(candidate: DateLike):
+def test_holiday_in_calendar(candidate: DateLike) -> None:
     calendar = create_bdew_calendar()
     assert candidate in calendar

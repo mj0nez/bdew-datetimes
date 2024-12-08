@@ -1,9 +1,9 @@
 from datetime import datetime, timedelta, timezone
 
-import pytest  # type:ignore[import]
+import pytest
 
+from bdew_datetimes import GERMAN_TIME_ZONE
 from bdew_datetimes.german_strom_and_gas_tag import (
-    GERMAN_TIME_ZONE,
     Division,
     has_no_utc_offset,
     is_gastag_limit,
@@ -87,7 +87,7 @@ from bdew_datetimes.german_strom_and_gas_tag import (
 )
 def test_stromtag(
     dt: datetime, expected_is_start_or_end_of_german_stromtag: bool
-):
+) -> None:
     actual = is_stromtag_limit(dt)
     assert actual == expected_is_start_or_end_of_german_stromtag
 
@@ -153,7 +153,9 @@ def test_stromtag(
         ),
     ],
 )
-def test_gastag(dt: datetime, expected_is_start_or_end_of_german_gastag: bool):
+def test_gastag(
+    dt: datetime, expected_is_start_or_end_of_german_gastag: bool
+) -> None:
     actual = is_gastag_limit(dt)
     assert actual == expected_is_start_or_end_of_german_gastag
 
@@ -170,7 +172,9 @@ def test_gastag(dt: datetime, expected_is_start_or_end_of_german_gastag: bool):
         ),
     ],
 )
-def test_has_no_utc_offset(dt: datetime, expected_has_not_utc_offset: bool):
+def test_has_no_utc_offset(
+    dt: datetime, expected_has_not_utc_offset: bool
+) -> None:
     actual = has_no_utc_offset(dt)
     assert actual == expected_has_not_utc_offset
 
@@ -181,7 +185,7 @@ def test_has_no_utc_offset(dt: datetime, expected_has_not_utc_offset: bool):
         pytest.param(datetime(2020, 1, 1, 0, 0, 0, tzinfo=timezone.utc), 0),
     ],
 )
-def test_is_xtag_limit_raises(dt: datetime, division: Division):
+def test_is_xtag_limit_raises(dt: datetime, division: Division) -> None:
     with pytest.raises(NotImplementedError):
         is_xtag_limit(date_time=dt, division=division)
 
@@ -231,6 +235,8 @@ def test_is_xtag_limit_raises(dt: datetime, division: Division):
         ),
     ],
 )
-def test_is_xtag_limit(dt: datetime, division: Division, expected):
+def test_is_xtag_limit(
+    dt: datetime, division: Division, expected: bool
+) -> None:
     actual = is_xtag_limit(dt, division)
     assert actual == expected

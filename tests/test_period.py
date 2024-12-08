@@ -1,6 +1,6 @@
 from datetime import date
 
-import pytest  # type:ignore[import]
+import pytest
 
 from bdew_datetimes.periods import (
     DayType,
@@ -15,13 +15,13 @@ from bdew_datetimes.periods import (
 )
 
 
-def test_period_instantiation_with_enum():
+def test_period_instantiation_with_enum() -> None:
     period = Period(42, DayType.WORKING_DAY)
     assert period.number_of_days == 42
     assert period.day_type == DayType.WORKING_DAY
 
 
-def test_period_instantiation_with_enum_and_inclusive_end():
+def test_period_instantiation_with_enum_and_inclusive_end() -> None:
     period = Period(
         42, DayType.WORKING_DAY, end_date_type=EndDateType.INCLUSIVE
     )
@@ -38,15 +38,15 @@ def test_period_instantiation_with_enum_and_inclusive_end():
 )
 def test_period_instantiation_with_str(
     number_of_days: int, str_daytype: _DayTyp, expected: Period
-):
+) -> None:
     actual = Period(number_of_days, str_daytype)
     assert actual == expected
 
 
-def test_instantiation_with_invalid_str():
+def test_instantiation_with_invalid_str() -> None:
     with pytest.raises(ValueError):
         _ = Period(
-            42, "Foo"  # type:ignore[argument] # literal is intentionally wrong
+            42, "Foo"  # type:ignore[arg-type] # literal is intentionally wrong
         )
 
 
@@ -72,7 +72,7 @@ def test_instantiation_with_invalid_str():
         ),
     ],
 )
-def test_get_next_working_day(start: date, expected: date):
+def test_get_next_working_day(start: date, expected: date) -> None:
     actual = get_next_working_day(start)
     assert actual == expected
 
@@ -96,7 +96,7 @@ def test_get_next_working_day(start: date, expected: date):
         ),
     ],
 )
-def test_get_previous_working_day(start: date, expected: date):
+def test_get_previous_working_day(start: date, expected: date) -> None:
     actual = get_previous_working_day(start)
     assert actual == expected
 
@@ -226,7 +226,7 @@ def test_get_previous_working_day(start: date, expected: date):
         ),
     ],
 )
-def test_add_frist(start: date, frist: Period, expected: date):
+def test_add_frist(start: date, frist: Period, expected: date) -> None:
     actual = add_frist(start, frist)
     assert actual == expected
 
@@ -350,6 +350,6 @@ def test_add_frist(start: date, frist: Period, expected: date):
 )
 def test_get_nth_working_day_of_month(
     number: int, start: date, month_type: MonthType, expected: date
-):
+) -> None:
     actual = get_nth_working_day_of_month(number, month_type, start)
     assert actual == expected

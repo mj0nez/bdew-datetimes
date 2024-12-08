@@ -30,7 +30,7 @@ def test_bdew_holidays(expected_holiday: date) -> None:
         pytest.param(date(2024, 8, 15), True, id="Mariä Himmelfahrt (BY, SL)"),
         pytest.param(date(2024, 11, 20), True, id="Buß- und Bettag (SN)"),
         pytest.param(date(2024, 12, 31), True, id="Silvester 2024 (BDEW)"),
-        pytest.param(date(2025, 4, 4), True, id="Sonderfeiertag 2025 (BDEW)"),
+        pytest.param(date(2025, 6, 6), True, id="Sonderfeiertag 2025 (BDEW)"),
     ],
 )
 def test_create_bdew_calendar(

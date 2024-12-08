@@ -7,7 +7,7 @@ from datetime import date
 from typing import Any
 
 from holidays import HolidayBase, HolidaySum
-from holidays.constants import APR, DEC  # type:ignore[attr-defined]
+from holidays.constants import DEC, JUN  # type:ignore[attr-defined]
 from holidays.countries.germany import Germany
 
 
@@ -29,8 +29,9 @@ class BdewDefinedHolidays(HolidayBase):
         self[date(year, DEC, 24)] = "Heiligabend"
         self[date(year, DEC, 31)] = "Silvester"
         if year == 2025:
-            self[date(2025, APR, 4)] = (
-                "Sonderfeiertag"  # Anlässlich der Einführung des 24h Lieferantenwechsels
+            self[date(2025, JUN, 6)] = (
+                "Sonderfeiertag"
+                # Anlässlich der (verschobenen) Einführung des 24h Lieferantenwechsels
             )
 
 

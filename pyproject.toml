@@ -75,7 +75,7 @@ tests = [
     "pytest==8.3.4"
 ]
 type_check = [
-    "mypy==1.13.0",
+    "mypy==1.14.0",
     "types-python-dateutil==2.9.0.20241206",
     "types-pytz==2024.2.0.20241221"
 ]

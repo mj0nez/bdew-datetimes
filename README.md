@@ -27,6 +27,9 @@ pip install bdew-datetimes
 ```
 
 ### Check if a date is a _specific_ BDEW Holidays
+> [!NOTE]  
+By "specific" we mean: Holidays that are neither nation- nor statewide holidays (those are defined in the [upstream package holidays](https://github.com/vacanza/holidays)) but defined by the BDEW directly.
+In 2025 those are: Sonderfeiertag 24h Lieferantenwechsel, Heiligabend and Silvester only.
 
 The `HolidaySum` returned by `create_bdew_calendar` contains the BDEW specific holidays.
 This means it contains those holidays which are _defined_ by BDEW which includes Heiligabend and Silvester as well as special days without Marktkommunikation but _not_ the local or nationwide holidays in Germany and its states. 
@@ -46,7 +49,7 @@ The **union** (type `HolidaySum`) of both nation and state wide holidays **and**
 
 ### Check if a given Date is a BDEW Working Day
 BDEW working days are those days taken into account for the "Fristenberechnung".
-The function `is_bdew_working_day` considers both national and state wide holidays as well as BDEW holidays:
+The function `is_bdew_working_day` considers both national **and** state wide holidays **and** BDEW holidays:
 ```python
 from datetime import date
 

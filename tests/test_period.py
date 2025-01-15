@@ -2,12 +2,9 @@ from datetime import date
 
 import pytest
 
+from bdew_datetimes.enums import DayType, EndDateType, MonthType
+from bdew_datetimes.models import Period, _DayTyp
 from bdew_datetimes.periods import (
-    DayType,
-    EndDateType,
-    MonthType,
-    Period,
-    _DayTyp,
     add_frist,
     get_next_working_day,
     get_nth_working_day_of_month,

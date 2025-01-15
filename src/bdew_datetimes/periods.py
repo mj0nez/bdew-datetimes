@@ -5,15 +5,17 @@ It is based on the chapter "Fristenberechnung" in the GPKE.
 """
 
 import datetime
-from dataclasses import dataclass
 from datetime import date
-from enum import Enum
-from typing import Literal, Optional, Union
+from typing import Optional
 
 from dateutil.relativedelta import relativedelta
 from holidays import SAT, SUN  # type:ignore[attr-defined]
 
-from bdew_datetimes import GERMAN_TIME_ZONE, create_bdew_calendar
+from bdew_datetimes.calendar import create_bdew_calendar
+from bdew_datetimes.enums import DayType, EndDateType, MonthType
+from bdew_datetimes.models import Period
+
+from .german_time_zone import GERMAN_TIME_ZONE
 
 # https://www.bundesnetzagentur.de/DE/Beschlusskammern/1_GZ/BK6-GZ/2020/BK6-20-160/Mitteilung_Nr_2/Leseversion_GPKE.pdf
 # pages 15 onwards
@@ -22,84 +24,6 @@ _bdew_calendar = create_bdew_calendar()
 """
 a static calendar object that is used (module) internally
 """
-
-
-class DayType(str, Enum):
-    """
-    An enum to differentiate between calendar days and working days.
-    """
-
-    WORKING_DAY = "WT"  #: working day, German "Werktag"
-    CALENDAR_DAY = "KT"  #: calendar day, German "Kalendertag"
-
-
-class EndDateType(Enum):
-    """
-    An enum to distinguish inclusive and exclusive end dates.
-    """
-
-    INCLUSIVE = 1
-    """
-    If a contract ends with the year 2022 and the end date is denoted as "2022-12-31",
-    then the end date is inclusive. Most dates in human (spoken) communication are meant
-    inclusively.
-    """
-
-    EXCLUSIVE = 2
-    """
-    If a contract ends with the year 2022 and the end date is denoted as "2023-01-01",
-    then the end date is exclusive. Most end dates handled by technical systems are meant
-    exclusively.
-    """
-
-
-_DayTyp = Union[DayType, Literal["WT", "KT"]]
-
-
-@dataclass
-class Period:
-    """
-    A period is a German "Frist": A tuple that consists of a number of days and a day type.
-    """
-
-    number_of_days: int
-    """
-    number of days (might be any value <0, >0 or ==0)
-    """
-    day_type: DayType
-    """
-    the kind of days to add/subtract
-    """
-
-    def __init__(
-        self,
-        number_of_days: int,
-        day_type: _DayTyp,
-        end_date_type: EndDateType = EndDateType.EXCLUSIVE,
-    ):
-        """
-        Initialize the Period by providing a number of days and a day_type which define the period.
-
-        """
-        self.number_of_days = number_of_days
-        # If the Period is about something ending (e.g. a contract), then the user may
-        # provide an end_date_type.
-        # Internally we handle all end dates as exclusive, because:
-        # https://hf-kklein.github.io/exclusive_end_dates.github.io/
-        if end_date_type == EndDateType.INCLUSIVE:
-            if self.number_of_days > 0:
-                self.number_of_days = self.number_of_days - 1
-            elif self.number_of_days < 0:
-                self.number_of_days = self.number_of_days + 1
-        if isinstance(day_type, DayType):
-            pass
-        elif isinstance(day_type, str):
-            day_type = DayType(day_type)
-        else:
-            raise ValueError(
-                f"'{day_type}' is not an allowed value; Check the typing"
-            )
-        self.day_type: DayType = day_type
 
 
 def is_bdew_working_day(candidate: date) -> bool:
@@ -172,31 +96,6 @@ def add_frist(start: date, period: Period) -> date:
     return result
 
 
-class MonthType(Enum):
-    """
-    When calculating periods defined as 'nth working day of a month' the
-    BNetzA regulations distinguish between two types of month which are
-    modelled in this enum.
-    Some periods refer to the "Liefermonat", others to the "Fristenmonat".
-    """
-
-    LIEFERMONAT = 1
-    """
-    The "Liefermonat" is the month in which the supply starts.
-    """
-    FRISTENMONAT = 2
-    """
-    The grid operators prefer a key date based handling of supply contracts.
-    The key date in these cases is usually expressed as a specific working day
-    in the so called "Fristenmonat".
-    The "Fristenmonat" starts at the first day of the month
-    _before_ the "Liefermonat".
-    Quote: 'Nach der Festlegung BK6-06-009 (GPKE) der Monat vor dem Liefermonat.'
-    """
-    # pylint:disable=line-too-long
-    # source: https://www.bundesnetzagentur.de/DE/Beschlusskammern/1_GZ/BK6-GZ/_bis_2010/2006/BK6-06-009/BK6-06-009_Beschluss_download.pdf?__blob=publicationFile&v=5
-
-
 def get_nth_working_day_of_month(
     number_of_working_day_in_month: int,
     month_type: MonthType = MonthType.LIEFERMONAT,
@@ -233,3 +132,13 @@ def get_nth_working_day_of_month(
     else:
         raise ValueError(f"Unhandled month_type {month_type}")
     return result
+
+
+# pylint:disable=duplicate-code
+__all__ = [
+    "is_bdew_working_day",
+    "get_next_working_day",
+    "get_previous_working_day",
+    "add_frist",
+    "get_nth_working_day_of_month",
+]

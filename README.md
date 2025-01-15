@@ -53,7 +53,7 @@ The function `is_bdew_working_day` considers both national **and** state wide ho
 ```python
 from datetime import date
 
-from bdew_datetimes.periods import is_bdew_working_day
+from bdew_datetimes import is_bdew_working_day
 
 assert is_bdew_working_day(date(2023, 1, 1)) is False  # Neujahr (national holiday)
 assert is_bdew_working_day(date(2023, 1, 2)) is True  # regular weekday
@@ -66,7 +66,7 @@ You can also get the next or previous working day for any date:
 ```python
 from datetime import date
 
-from bdew_datetimes.periods import get_next_working_day, get_previous_working_day
+from bdew_datetimes import get_next_working_day, get_previous_working_day
 
 assert get_next_working_day(date(2023, 1, 1)) == date(2023, 1, 2)  # the next working day after Neujahr
 assert get_previous_working_day(date(2023, 1, 1)) == date(2022, 12, 30)  # the last working day of 2022
@@ -75,10 +75,13 @@ assert get_next_working_day(date(2023, 1, 20)) == date(2023, 1, 23)  # the next 
 
 ### Calculate Statutory Periods
 Statutory periods define the maximum time between e.g. the EDIFACT message for the "Anmeldung" and the actual start of supply ("Lieferbeginn").
+
 ```python
 from datetime import date
 
-from bdew_datetimes.periods import DayType, EndDateType, Period, add_frist
+from bdew_datetimes import add_frist
+from bdew_datetimes import Period
+from bdew_datetimes.enums import DayType, EndDateType
 
 # Eingang der Anmeldung des LFN erfolgt am 04.07.2016. Der Mindestzeitraum von zehn WT
 # beginnt am 05.07.2016 und endet am 18.07.2016. Frühestes zulässiges Anmeldedatum
@@ -86,20 +89,22 @@ from bdew_datetimes.periods import DayType, EndDateType, Period, add_frist
 # des vorgenannten Tages zugeordnet wird.
 eingang_der_anmeldung = date(2016, 7, 4)
 gesetzliche_frist = Period(
-    10,
-    DayType.WORKING_DAY,
-    end_date_type=EndDateType.EXCLUSIVE
-    # lieferbeginn is the exclusive end of the previous supply contract
+  10,
+  DayType.WORKING_DAY,
+  end_date_type=EndDateType.EXCLUSIVE
+  # lieferbeginn is the exclusive end of the previous supply contract
 )
 fruehest_moeglicher_lieferbeginn = add_frist(eingang_der_anmeldung, gesetzliche_frist)
 assert fruehest_moeglicher_lieferbeginn == date(2016, 7, 19)
 ```
 ### Calculate "Liefer- and Fristenmonate"
 Liefer- and Fristenmonat are concepts used in MaBiS and GPKE:
+
 ```python
 from datetime import date
 
-from bdew_datetimes.periods import get_nth_working_day_of_month, MonthType
+from bdew_datetimes import get_nth_working_day_of_month
+from bdew_datetimes.enums import MonthType
 
 # returns the 18th working day of the current month in Germany
 get_nth_working_day_of_month(18)

@@ -4,7 +4,6 @@ of a German "Stromtag" or "Gastag" respectively
 """
 
 from datetime import datetime, time
-from enum import Enum
 from typing import Callable
 
 # The problem with the stdlib zoneinfo is, that the availability of timezones
@@ -14,16 +13,9 @@ from typing import Callable
 # datasource for timezone information.
 from pytz import utc
 
-from bdew_datetimes import GERMAN_TIME_ZONE
+from bdew_datetimes.enums import Division
 
-
-class Division(Enum):
-    """
-    Allows to distinguish divisions used by German utilities, German "Sparte".
-    """
-
-    STROM = 1  #: electricity
-    GAS = 2  #: gas
+from .german_time_zone import GERMAN_TIME_ZONE
 
 
 def _get_german_local_time(date_time: datetime) -> time:
@@ -102,3 +94,6 @@ def is_xtag_limit(date_time: datetime, division: Division) -> bool:
             f"The division must either be 'Strom' or 'Gas': '{division}'"
         )
     return xtag_evaluator(date_time)
+
+
+__all__ = ["is_gastag_limit", "is_stromtag_limit"]

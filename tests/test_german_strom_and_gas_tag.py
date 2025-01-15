@@ -2,14 +2,14 @@ from datetime import datetime, timedelta, timezone
 
 import pytest
 
-from bdew_datetimes import GERMAN_TIME_ZONE
+from bdew_datetimes.enums import Division
 from bdew_datetimes.german_strom_and_gas_tag import (
-    Division,
     has_no_utc_offset,
     is_gastag_limit,
     is_stromtag_limit,
     is_xtag_limit,
 )
+from bdew_datetimes.german_time_zone import GERMAN_TIME_ZONE
 
 
 @pytest.mark.parametrize(

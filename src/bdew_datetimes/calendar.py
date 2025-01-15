@@ -78,3 +78,6 @@ def create_bdew_calendar() -> HolidaySum:
         # https://github.com/vacanza/python-holidays/blob/v0.53/holidays/holiday_base.py#L1164
         result.language = original_language_before_adding_subdivisions
     return result
+
+
+__all__ = ["BdewDefinedHolidays", "create_bdew_calendar"]

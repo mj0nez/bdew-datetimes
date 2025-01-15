@@ -14,8 +14,7 @@ from holidays import SAT, SUN  # type:ignore[attr-defined]
 from bdew_datetimes.calendar import create_bdew_calendar
 from bdew_datetimes.enums import DayType, EndDateType, MonthType
 from bdew_datetimes.models import Period
-
-from .german_time_zone import GERMAN_TIME_ZONE
+from bdew_datetimes.german_time_zone import GERMAN_TIME_ZONE
 
 # https://www.bundesnetzagentur.de/DE/Beschlusskammern/1_GZ/BK6-GZ/2020/BK6-20-160/Mitteilung_Nr_2/Leseversion_GPKE.pdf
 # pages 15 onwards

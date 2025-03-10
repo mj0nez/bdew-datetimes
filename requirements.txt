@@ -4,7 +4,7 @@
 #
 #    pip-compile pyproject.toml
 #
-holidays==0.67 ; python_version >= "3.9"
+holidays==0.68 ; python_version >= "3.9"
     # via bdew_datetimes (pyproject.toml)
 python-dateutil==2.9.0.post0
     # via

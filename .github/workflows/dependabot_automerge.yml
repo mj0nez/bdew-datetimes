@@ -13,6 +13,10 @@ jobs:
       GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
     if: ${{ github.actor == 'dependabot[bot]' }}
     steps:
+      - name: Verify commit signature.
+        run: |
+          curl -s https://github.com/web-flow.gpg | gpg --import
+          git verify commit "$GITHUB_SHA"
       - name: Approve a PR
         run: gh pr review --approve "$PR_URL"
       - name: Enable auto-merge for Dependabot PRs

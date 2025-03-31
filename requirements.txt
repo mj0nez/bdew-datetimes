@@ -10,7 +10,7 @@ python-dateutil==2.9.0.post0
     # via
     #   bdew_datetimes (pyproject.toml)
     #   holidays
-pytz==2025.1
+pytz==2025.2
     # via bdew_datetimes (pyproject.toml)
 six==1.17.0
     # via python-dateutil

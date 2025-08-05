@@ -35,6 +35,29 @@ class BdewDefinedHolidays(HolidayBase):
             )
 
 
+_relevant_subdivisions: list[str] = [
+    "BB",  # Brandenburg.
+    "BE",  # Berlin.
+    "BW",  # Baden-Württemberg.
+    "BY",  # Bayern.
+    "HB",  # Bremen.
+    "HE",  # Hessen.
+    "HH",  # Hamburg.
+    "MV",  # Mecklenburg-Vorpommern.
+    "NI",  # Niedersachsen.
+    "NW",  # Nordrhein-Westfalen.
+    "RP",  # Rheinland-Pfalz.
+    "SH",  # Schleswig-Holstein.
+    "SL",  # Saarland.
+    "SN",  # Sachsen.
+    "ST",  # Sachsen-Anhalt.
+    "TH",  # Thüringen.
+    # This list contains an explicit list of all BDEW calendar relevant Germany subdivisions.
+    # It does _not_ include the 'Augsburg' subdivision which has been added in holidays v0.78.
+    # https://github.com/vacanza/holidays/commit/feab68b4377369ad52eeee9e98fc8316ec0c6f86
+]
+
+
 def create_bdew_calendar() -> HolidaySum:
     """Creates a calendar containing all days considered by the BDEW.
 
@@ -64,7 +87,7 @@ def create_bdew_calendar() -> HolidaySum:
     # If a day is holiday in any subdivision, the holiday is valid nationwide.
     # Therefore, we add all subdivisions of Germany to the BDEW specific holidays.
     # Currently, in Germany holidays are not observed.
-    for subdivision in Germany.subdivisions:
+    for subdivision in _relevant_subdivisions:
         # the method __add__ expects a Union[int, "HolidayBase", "HolidaySum"] as `other`
         # here, we're dealing with a child instance of HolidayBase
         result += Germany(

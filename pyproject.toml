@@ -58,7 +58,7 @@ dynamic = ["readme", "version"]
 
 [project.optional-dependencies]
 formatting = [
-    "black==25.1.0",
+    "black==25.9.0",
     "isort==6.0.1"
 ]
 linting = [

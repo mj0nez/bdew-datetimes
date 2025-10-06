@@ -62,7 +62,7 @@ formatting = [
     "isort==6.1.0"
 ]
 linting = [
-    "pylint==3.3.8"
+    "pylint==3.3.9"
 ]
 spell_check = [
     "codespell==2.4.1"

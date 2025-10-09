@@ -7,18 +7,16 @@ on:
       - main
 jobs:
   black:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.13"]
-        os: [ubuntu-latest]
         tool: ["black", "isort"]
     steps:
       - uses: actions/checkout@v5
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python
         uses: actions/setup-python@v6
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: "3.14"
           allow-prereleases: true
       - name: Install dependencies
         run: |

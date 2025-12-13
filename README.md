@@ -131,4 +131,5 @@ This library is licensed under the *MIT* license, see the [LICENSE file](LICENSE
 
 ## Users
 This library is used by the following projects:
-- [Hochfrequenz Fristenkalender](https://www.hochfrequenz.de/#fristenkalender)
+- [Hochfrequenz Fristenkalender](https://fristenkalender.hochfrequenz.de); the respective backend is also available [online](https://fristenkalender-api.happyfield-64ecc075.westeurope.azurecontainerapps.io/docs) and as [Docker image](https://github.com/Hochfrequenz/fristenkalender-functions/pkgs/container/fristenkalender-functions)
+

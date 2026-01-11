@@ -12,6 +12,7 @@ from .periods import (
     get_previous_working_day,
     is_bdew_working_day,
 )
+from .utils import get_all_bdew_non_working_days, get_all_bdew_working_days
 
 __all__ = [
     "create_bdew_calendar",
@@ -22,5 +23,7 @@ __all__ = [
     "get_previous_working_day",
     "add_frist",
     "get_nth_working_day_of_month",
+    "get_all_bdew_working_days",
+    "get_all_bdew_non_working_days",
     "GERMAN_TIME_ZONE",
 ]

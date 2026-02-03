@@ -9,7 +9,7 @@ from datetime import date
 from typing import Optional
 
 from dateutil.relativedelta import relativedelta
-from holidays import SAT, SUN  # type:ignore[attr-defined]
+from holidays import SAT, SUN  # type: ignore[attr-defined]
 
 from bdew_datetimes.calendar import create_bdew_calendar
 from bdew_datetimes.enums import DayType, EndDateType, MonthType

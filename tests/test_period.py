@@ -43,7 +43,7 @@ def test_period_instantiation_with_str(
 def test_instantiation_with_invalid_str() -> None:
     with pytest.raises(ValueError):
         _ = Period(
-            42, "Foo"  # type:ignore[arg-type] # literal is intentionally wrong
+            42, "Foo"  # type: ignore[arg-type] # literal is intentionally wrong
         )
 
 

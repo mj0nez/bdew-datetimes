@@ -7,7 +7,7 @@ from datetime import date
 from typing import Any
 
 from holidays import HolidayBase, HolidaySum
-from holidays.constants import DEC, JUN  # type:ignore[attr-defined]
+from holidays.constants import DEC, JUN  # type: ignore[attr-defined]
 from holidays.countries.germany import Germany
 
 
@@ -82,7 +82,7 @@ def create_bdew_calendar() -> HolidaySum:
     calendar = BdewDefinedHolidays(language="de")
 
     # the type is wrong at assignment but correct after the first loop iteration
-    result: HolidaySum = calendar  # type:ignore[assignment]
+    result: HolidaySum = calendar  # type: ignore[assignment]
     original_language_before_adding_subdivisions = result.language
     # If a day is holiday in any subdivision, the holiday is valid nationwide.
     # Therefore, we add all subdivisions of Germany to the BDEW specific holidays.
@@ -92,7 +92,7 @@ def create_bdew_calendar() -> HolidaySum:
         # here, we're dealing with a child instance of HolidayBase
         result += Germany(
             subdiv=subdivision, observed=False, language="de"
-        )  # type:ignore[assignment]
+        )  # type: ignore[assignment]
     if result.language is None:
         # This is a workaround to a problem in holidays 0.20-0.53 (at least):
         # When adding the subdivisions, the language attribute is lost,

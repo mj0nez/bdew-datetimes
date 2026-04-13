@@ -36,7 +36,7 @@ spell_check = ["codespell==2.4.2"]
 packaging = ["build==1.4.2", "twine==6.2.0"]
 tests = ["pytest==9.0.2", "syrupy==5.1.0"]
 type_check = [
-    "mypy==1.19.1",
+    "mypy==1.20.0",
     "types-python-dateutil==2.9.0.20260402",
     "types-pytz==2026.1.1.20260304",
 ]

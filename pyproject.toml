@@ -38,7 +38,7 @@ tests = ["pytest==9.1.1", "syrupy==5.5.3"]
 type_check = [
     "mypy==2.3.0",
     "types-python-dateutil==2.9.0.20260716",
-    "types-pytz==2026.2.0.20260518",
+    "types-pytz==2026.3.1.20260727",
 ]
 
 [project.urls]

@@ -125,6 +125,23 @@ Therefore, this package utilizes the composition of all available german holiday
 Shifting holidays to the next weekday if they fall on a weekend is currently not considered.  
 
 
+## Development
+
+This project uses [uv](https://docs.astral.sh/uv/) for dependency management and tooling.
+After installing uv, set up the development environment with:
+```bash
+uv sync --group dev
+```
+
+Run the tests and the individual tooling via the corresponding dependency groups:
+```bash
+uv run --group tests pytest
+uv run --group type_check mypy --strict src/bdew_datetimes tests
+uv run --group linting ruff check .
+uv run --group linting ruff format .
+uv run --group spell_check codespell --ignore-words=domain-specific-terms.txt src/bdew_datetimes README.md
+```
+
 ## License
 
 This library is licensed under the *MIT* license, see the [LICENSE file](LICENSE).

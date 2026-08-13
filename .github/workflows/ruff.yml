@@ -1,0 +1,30 @@
+name: "Ruff"
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+jobs:
+  ruff-format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - name: Install uv
+        uses: astral-sh/setup-uv@v9.0.0
+        with:
+          python-version: "3.14"
+      - name: ruff format
+        run: |
+          uv run --locked --group linting ruff format --check .
+  ruff-imports:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - name: Install uv
+        uses: astral-sh/setup-uv@v9.0.0
+        with:
+          python-version: "3.14"
+      - name: ruff import sorting
+        run: |
+          uv run --locked --group linting ruff check --select I .

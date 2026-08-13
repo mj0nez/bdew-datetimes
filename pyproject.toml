@@ -29,18 +29,6 @@ dependencies = [
 ]
 dynamic = ["readme", "version"]
 
-[project.optional-dependencies]
-formatting = ["black==26.5.1", "isort==8.0.1"]
-linting = ["pylint==4.0.6"]
-spell_check = ["codespell==2.4.3"]
-packaging = ["build==1.5.0", "twine==7.0.0"]
-tests = ["pytest==9.1.1", "syrupy==5.5.3"]
-type_check = [
-    "mypy==2.3.0",
-    "types-python-dateutil==2.9.0.20260716",
-    "types-pytz==2026.3.1.20260727",
-]
-
 [project.urls]
 Changelog = "https://github.com/mj0nez/bdew-datetimes/releases"
 Homepage = "https://github.com/mj0nez/bdew-datetimes/"
@@ -49,28 +37,113 @@ Homepage = "https://github.com/mj0nez/bdew-datetimes/"
 requires = ["hatchling>=1.8.0", "hatch-vcs", "hatch-fancy-pypi-readme"]
 build-backend = "hatchling.build"
 
-[tool.black]
-line-length = 79
-target-version = ['py310', 'py311', 'py312', 'py313', 'py314']
-exclude = '''
-/(
-    \.eggs
-  | \.git
-  | \.hg
-  | \.mypy_cache
-  | \.tox
-  | \.venv
-  | _build
-  | buck-out
-  | build
-  | dist
-  | venv
-)/
-'''
+[dependency-groups]
+tests = ["pytest==9.1.1", "syrupy==5.5.3"]
+linting = ["ruff==0.16.2"]
+type_check = [
+    "mypy==2.3.0",
+    "types-python-dateutil==2.9.0.20260716",
+    "types-pytz==2026.3.1.20260727",
+    { include-group = "tests" },
+]
+spell_check = ["codespell==2.4.3"]
+dev = [
+    { include-group = "tests" },
+    { include-group = "linting" },
+    { include-group = "type_check" },
+    { include-group = "spell_check" },
+]
 
-[tool.isort]
-line_length = 79
-profile = "black"
+[tool.uv]
+default-groups = []
+
+[tool.ruff]
+line-length = 79
+target-version = "py310"
+extend-exclude = ["*.md"]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+    "N",   # pep8-naming
+    "PL",  # pylint
+    "RUF", # ruff-specific rules
+    "SIM", # flake8-simplify
+    "C4",  # flake8-comprehensions
+    "PTH", # flake8-use-pathlib
+    "PT",  # flake8-pytest-style
+    "RET", # flake8-return
+    "ARG", # flake8-unused-arguments
+    "TC",  # flake8-type-checking
+    "PIE", # flake8-pie
+    "RSE", # flake8-raise
+    "ISC", # flake8-implicit-str-concat
+    "S",   # flake8-bandit (published library)
+]
+ignore = [
+    "PLR0913", # too-many-arguments
+    "PLR0917", # too-many-positional-arguments
+    "PLR0912", # too-many-branches
+    "PLR0915", # too-many-statements
+    "PLR2004", # magic-value-comparison
+    "ISC001",  # single-line-implicit-string-concatenation (conflicts with formatter)
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["bdew_datetimes"]
+
+[tool.ruff.lint.per-file-ignores]
+# Standing globs (hand-written): apply to files that may not exist yet.
+"tests/**" = [
+    "S101",    # assert-used
+    "PLR2004", # magic-value-comparison
+]
+# Generated grandfathering of pre-existing violations (zero lint churn on
+# existing code). New/changed code is held to the full select set above.
+"src/bdew_datetimes/__init__.py" = [
+    "E501",   # line-too-long
+    "RUF022", # unsorted-dunder-all
+]
+"src/bdew_datetimes/calendar.py" = [
+    "E501", # line-too-long
+]
+"src/bdew_datetimes/enums.py" = [
+    "E501",   # line-too-long
+    "RUF022", # unsorted-dunder-all
+]
+"src/bdew_datetimes/german_strom_and_gas_tag.py" = [
+    "E501",  # line-too-long
+    "UP035", # deprecated-import
+]
+"src/bdew_datetimes/models.py" = [
+    "E501",  # line-too-long
+    "UP007", # non-pep604-annotation-union
+]
+"src/bdew_datetimes/periods.py" = [
+    "E501",   # line-too-long
+    "RUF022", # unsorted-dunder-all
+    "UP045",  # non-pep604-annotation-optional
+]
+"src/bdew_datetimes/utils.py" = [
+    "E501",   # line-too-long
+    "RUF022", # unsorted-dunder-all
+]
+"tests/test_calendar.py" = [
+    "PT006", # pytest-parametrize-names-wrong-type
+]
+"tests/test_german_strom_and_gas_tag.py" = [
+    "PT006", # pytest-parametrize-names-wrong-type
+]
+"tests/test_period.py" = [
+    "E501",  # line-too-long
+    "PT006", # pytest-parametrize-names-wrong-type
+    "PT011", # pytest-raises-too-broad
+]
 
 [tool.hatch.metadata.hooks.fancy-pypi-readme]
 content-type = "text/markdown"

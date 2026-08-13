@@ -6,23 +6,31 @@ on:
     branches:
       - main
 jobs:
-  pylint:
+  linters:
     name: Python Code Quality and Lint
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        linter-env: ["linting", "type_check", "spell_check"]
+        linter-env: ["ruff-check", "type_check", "spell_check"]
+    env:
+      PYTHONPATH: src
     steps:
       - uses: actions/checkout@v7.0.1
-      - name: Set up Python
-        uses: actions/setup-python@v7.0.0
+      - name: Install uv
+        uses: astral-sh/setup-uv@v9.0.0
         with:
           python-version: "3.14"
-          allow-prereleases: true
-      - name: Install Dependencies
+      - name: Run ruff-check
+        if: matrix.linter-env == 'ruff-check'
         run: |
-          python -m pip install --upgrade pip
-          pip install tox
-      - name: Run ${{ matrix.linter-env }} via Tox
+          uv run --locked --group linting ruff check .
+      - name: Run type_check
+        if: matrix.linter-env == 'type_check'
         run: |
-          tox -e ${{ matrix.linter-env }}
+          uv run --locked --group type_check mypy --show-error-codes --strict src/bdew_datetimes
+          uv run --locked --group type_check mypy --show-error-codes --strict tests
+      - name: Run spell_check
+        if: matrix.linter-env == 'spell_check'
+        run: |
+          uv run --locked --group spell_check codespell --ignore-words=domain-specific-terms.txt src/bdew_datetimes
+          uv run --locked --group spell_check codespell --ignore-words=domain-specific-terms.txt README.md

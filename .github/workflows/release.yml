@@ -32,11 +32,10 @@ jobs:
           uv run --locked --group type_check mypy --show-error-codes --strict tests
       - name: Run the linter
         run: |
-          uv run --locked --group linting pylint bdew_datetimes
-      - name: Run the formatters (check only)
+          uv run --locked --group linting ruff check .
+      - name: Run the formatter (check only)
         run: |
-          uv run --locked --group formatting isort . --check
-          uv run --locked --group formatting black . --check
+          uv run --locked --group linting ruff format --check .
       - name: Run the spell check
         run: |
           uv run --locked --group spell_check codespell --ignore-words=domain-specific-terms.txt src/bdew_datetimes

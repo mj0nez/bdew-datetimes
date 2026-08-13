@@ -137,9 +137,8 @@ Run the tests and the individual tooling via the corresponding dependency groups
 ```bash
 uv run --group tests pytest
 uv run --group type_check mypy --strict src/bdew_datetimes tests
-uv run --group linting pylint bdew_datetimes
-uv run --group formatting black .
-uv run --group formatting isort .
+uv run --group linting ruff check .
+uv run --group linting ruff format .
 uv run --group spell_check codespell --ignore-words=domain-specific-terms.txt src/bdew_datetimes README.md
 ```
 

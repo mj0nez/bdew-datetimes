@@ -6,12 +6,12 @@ on:
     branches:
       - main
 jobs:
-  pylint:
+  linters:
     name: Python Code Quality and Lint
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        linter-env: ["linting", "type_check", "spell_check"]
+        linter-env: ["ruff-check", "type_check", "spell_check"]
     env:
       PYTHONPATH: src
     steps:
@@ -20,10 +20,10 @@ jobs:
         uses: astral-sh/setup-uv@v9.0.0
         with:
           python-version: "3.14"
-      - name: Run linting
-        if: matrix.linter-env == 'linting'
+      - name: Run ruff-check
+        if: matrix.linter-env == 'ruff-check'
         run: |
-          uv run --locked --group linting pylint bdew_datetimes
+          uv run --locked --group linting ruff check .
       - name: Run type_check
         if: matrix.linter-env == 'type_check'
         run: |

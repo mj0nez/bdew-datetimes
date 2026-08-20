@@ -8,6 +8,10 @@ resolution-markers = [
     "python_full_version < '3.11'",
 ]
 
+[options]
+exclude-newer = "0001-01-01T00:00:00Z" # This has no effect and is included for backwards compatibility when using relative exclude-newer values.
+exclude-newer-span = "P7D"
+
 [[package]]
 name = "ast-serialize"
 version = "0.8.0"
@@ -140,17 +144,17 @@ dev = [
     { name = "codespell", specifier = "==2.4.3" },
     { name = "isort", specifier = "==8.0.1" },
     { name = "mypy", specifier = "==2.3.0" },
-    { name = "pylint", specifier = "==4.0.6" },
+    { name = "pylint", specifier = "==4.0.7" },
     { name = "pytest", specifier = "==9.1.1" },
     { name = "syrupy", specifier = "==5.5.3" },
-    { name = "types-python-dateutil", specifier = "==2.9.0.20260716" },
+    { name = "types-python-dateutil", specifier = "==2.9.0.20260807" },
     { name = "types-pytz", specifier = "==2026.3.1.20260727" },
 ]
 formatting = [
     { name = "black", specifier = "==26.5.1" },
     { name = "isort", specifier = "==8.0.1" },
 ]
-linting = [{ name = "pylint", specifier = "==4.0.6" }]
+linting = [{ name = "pylint", specifier = "==4.0.7" }]
 spell-check = [{ name = "codespell", specifier = "==2.4.3" }]
 tests = [
     { name = "pytest", specifier = "==9.1.1" },
@@ -160,7 +164,7 @@ type-check = [
     { name = "mypy", specifier = "==2.3.0" },
     { name = "pytest", specifier = "==9.1.1" },
     { name = "syrupy", specifier = "==5.5.3" },
-    { name = "types-python-dateutil", specifier = "==2.9.0.20260716" },
+    { name = "types-python-dateutil", specifier = "==2.9.0.20260807" },
     { name = "types-pytz", specifier = "==2026.3.1.20260727" },
 ]
 
@@ -544,7 +548,7 @@ wheels = [
 
 [[package]]
 name = "pylint"
-version = "4.0.6"
+version = "4.0.7"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "astroid" },
@@ -556,9 +560,9 @@ dependencies = [
     { name = "tomli", marker = "python_full_version < '3.11'" },
     { name = "tomlkit" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/7d/1d/3bb57f303701549550d74bf7ced2b07412be97125c167a0c9d216aa9f762/pylint-4.0.6.tar.gz", hash = "sha256:52f19191bee08bf103f9705ad1a0ece4aa5a0a4ef2bdcbd969375a1e6f6579d5", size = 1585588, upload-time = "2026-06-14T14:43:26.772Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/de/92/98dace02f2d11b88160354c53944f77ea7327aa78bce1c75971e7aaa4347/pylint-4.0.7.tar.gz", hash = "sha256:9b2d1d15791c84b77a4fe2aafe8f0d9570717e2dea06d53b19c105cf60275a52", size = 1594770, upload-time = "2026-08-09T19:13:23.289Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/ab/da/acb2e7d4dbd2dfb792d38c0d850481f29ad7049b356d23f56c687d35203b/pylint-4.0.6-py3-none-any.whl", hash = "sha256:d11a0e1fdb7b1cd46ec5d6fc78fee8b95f28695b2d6140e5809925f61e32ea54", size = 538389, upload-time = "2026-06-14T14:43:24.873Z" },
+    { url = "https://files.pythonhosted.org/packages/e0/b0/3a8040e53df6c5c1e04b0e23ed53fdbeb64f333723a334d313fba2f581ce/pylint-4.0.7-py3-none-any.whl", hash = "sha256:be4a3111557a614411ed1fc89347ce4a8e1013a59e1f33d11485227a02e3304d", size = 539710, upload-time = "2026-08-09T19:13:21.228Z" },
 ]
 
 [[package]]
@@ -725,11 +729,11 @@ wheels = [
 
 [[package]]
 name = "types-python-dateutil"
-version = "2.9.0.20260716"
+version = "2.9.0.20260807"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/df/9a/aefb9f80ff79641d36149352afe66ca835c5e6894deb518418f786f4b8ad/types_python_dateutil-2.9.0.20260716.tar.gz", hash = "sha256:1d55d1c3024bdb4861bb6a6622c9ec800c433d87bdc5b16fb84cdd0eed4ef2cb", size = 17516, upload-time = "2026-07-16T04:48:06.604Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/c8/4e/b3fa538f9cb38dfece0d6ccf6d3d0d925bdedb144fb9c8129dfc007cd003/types_python_dateutil-2.9.0.20260807.tar.gz", hash = "sha256:e0b8a90d464c8684c66b7b8e4556d9074afdddcc56ca45323f0987134f9e7034", size = 17618, upload-time = "2026-08-07T04:17:13.491Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/16/85/cff97326a81e7e8877803e78e3ea56c840b85bb811934b9c936f7c40f185/types_python_dateutil-2.9.0.20260716-py3-none-any.whl", hash = "sha256:1ae41d51a5c5f6bbeeb7f1f34df7086d55ff1605cf88d2ed71a7a276e1a7794e", size = 18443, upload-time = "2026-07-16T04:48:05.793Z" },
+    { url = "https://files.pythonhosted.org/packages/e4/5e/3715867caea2f4cea56ccb04c851cde23ed063449c3b004c7a047f20dd48/types_python_dateutil-2.9.0.20260807-py3-none-any.whl", hash = "sha256:54aa3707350ed7a9cc0776fd2f6739679d6967d11b40150985e81edcb86df4db", size = 18486, upload-time = "2026-08-07T04:17:12.504Z" },
 ]
 
 [[package]]

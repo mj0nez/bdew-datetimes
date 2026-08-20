@@ -69,7 +69,11 @@ dev = [
 ]
 
 [tool.uv]
-default-groups = []
+# to avoid bypassing our default cooldown
+exclude-newer = "7 days"
+
+[tool.uv.pip]
+only-binary = [":all:"] # preferr wheels when using the pip interface
 
 [tool.black]
 line-length = 79

@@ -9,38 +9,42 @@ name: Upload Python Package
 
 on:
   release:
-    types: [ created, edited ]
+    types: [created, edited]
+
+permissions: {}
+
+env:
+  UV_LOCKED: true
 
 jobs:
   tests:
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
-    env:
-      PYTHONPATH: src
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v7.0.1
       - name: Install uv
         uses: astral-sh/setup-uv@v9.0.0
         with:
           python-version: "3.14"
+          enable-cache: false # avoid cache poisoning
       - name: Run the tests
         run: |
-          uv run --locked --group tests pytest
+          make tests
       - name: Run the type checks
         run: |
-          uv run --locked --group type_check mypy --show-error-codes --strict src/bdew_datetimes
-          uv run --locked --group type_check mypy --show-error-codes --strict tests
+          make typing
       - name: Run the linter
         run: |
-          uv run --locked --group linting pylint bdew_datetimes
+          make lint
       - name: Run the formatters (check only)
         run: |
-          uv run --locked --group formatting isort . --check
-          uv run --locked --group formatting black . --check
+          make black
+          make isort
       - name: Run the spell check
         run: |
-          uv run --locked --group spell_check codespell --ignore-words=domain-specific-terms.txt src/bdew_datetimes
-          uv run --locked --group spell_check codespell --ignore-words=domain-specific-terms.txt README.md
+          make spell-check
 
   build-n-publish:
     name: Build and publish Python 🐍 distributions 📦 to PyPI and TestPyPI
@@ -58,10 +62,11 @@ jobs:
         uses: astral-sh/setup-uv@v9.0.0
         with:
           python-version: "3.14"
+          enable-cache: false # # avoid cache poisoning
       - name: Build wheel and source distributions
         run: |
-          uv build
+          make build
       - name: Publish distribution 📦 to PyPI
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
-          uv publish --trusted-publishing=automatic
+          make release

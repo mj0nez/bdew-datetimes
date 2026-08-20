@@ -12,6 +12,8 @@ jobs:
       matrix:
         python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
         os: [ubuntu-latest]
+    env:
+      UV_LOCKED: true
     steps:
       - uses: actions/checkout@v7.0.1
       - name: Install uv
@@ -20,7 +22,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Build the package
         run: |
-          uv build
+          make build
       - name: Check the built distributions
         run: |
-          uv publish --dry-run dist/*
+          make build-check

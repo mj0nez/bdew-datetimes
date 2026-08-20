@@ -13,7 +13,7 @@ jobs:
       matrix:
         linter-env: ["linting", "type_check", "spell_check"]
     env:
-      PYTHONPATH: src
+      UV_LOCKED: true
     steps:
       - uses: actions/checkout@v7.0.1
       - name: Install uv
@@ -23,14 +23,12 @@ jobs:
       - name: Run linting
         if: matrix.linter-env == 'linting'
         run: |
-          uv run --locked --group linting pylint bdew_datetimes
+          make lint
       - name: Run type_check
         if: matrix.linter-env == 'type_check'
         run: |
-          uv run --locked --group type_check mypy --show-error-codes --strict src/bdew_datetimes
-          uv run --locked --group type_check mypy --show-error-codes --strict tests
+          make typing
       - name: Run spell_check
         if: matrix.linter-env == 'spell_check'
         run: |
-          uv run --locked --group spell_check codespell --ignore-words=domain-specific-terms.txt src/bdew_datetimes
-          uv run --locked --group spell_check codespell --ignore-words=domain-specific-terms.txt README.md
+          make spell-check

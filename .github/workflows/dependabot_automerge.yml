@@ -1,17 +1,19 @@
 name: Dependabot auto-approve / -merge
 on: pull_request
 
+permissions: {}
 
 jobs:
   dependabot:
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
     permissions:
       contents: write
       pull-requests: write
-    runs-on: ubuntu-latest
     env:
       PR_URL: ${{github.event.pull_request.html_url}}
       GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-    if: ${{ github.actor == 'dependabot[bot]' }}
     steps:
       - uses: actions/checkout@v7.0.1
       - name: Verify commit signature.

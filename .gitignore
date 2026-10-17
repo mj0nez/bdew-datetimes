@@ -29,7 +29,6 @@ ipython_config.py
 /prof
 
 # Environments
-.python-version
 .env
 .venv
 env/

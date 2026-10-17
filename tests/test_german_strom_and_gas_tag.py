@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta, timezone
 
 import pytest
 
@@ -15,15 +15,9 @@ from bdew_datetimes.german_time_zone import GERMAN_TIME_ZONE
 @pytest.mark.parametrize(
     "dt, expected_is_start_or_end_of_german_stromtag",
     [
-        pytest.param(
-            datetime(2020, 1, 1, 0, 0, 0, tzinfo=timezone.utc), False
-        ),
-        pytest.param(
-            datetime(2019, 12, 31, 23, 0, 0, tzinfo=timezone.utc), True
-        ),
-        pytest.param(
-            datetime(2019, 12, 31, 22, 0, 0, tzinfo=timezone.utc), False
-        ),
+        pytest.param(datetime(2020, 1, 1, 0, 0, 0, tzinfo=UTC), False),
+        pytest.param(datetime(2019, 12, 31, 23, 0, 0, tzinfo=UTC), True),
+        pytest.param(datetime(2019, 12, 31, 22, 0, 0, tzinfo=UTC), False),
         pytest.param(
             datetime(2010, 1, 1, 0, 0, 0, tzinfo=GERMAN_TIME_ZONE), True
         ),
@@ -33,30 +27,22 @@ from bdew_datetimes.german_time_zone import GERMAN_TIME_ZONE
             ),
             True,
         ),
-        pytest.param(
-            datetime(2022, 3, 26, 23, 0, 0, 0, tzinfo=timezone.utc), True
-        ),
+        pytest.param(datetime(2022, 3, 26, 23, 0, 0, 0, tzinfo=UTC), True),
         pytest.param(
             datetime.fromisoformat("2022-03-27T00:00:00+01:00"), True
         ),
         pytest.param(
             datetime.fromisoformat("2022-03-27T00:00:00+02:00"), False
         ),
-        pytest.param(
-            datetime(2022, 3, 27, 22, 0, 0, 0, tzinfo=timezone.utc), True
-        ),
+        pytest.param(datetime(2022, 3, 27, 22, 0, 0, 0, tzinfo=UTC), True),
         pytest.param(
             datetime.fromisoformat("2022-03-28T00:00:00+02:00"), True
         ),
-        pytest.param(
-            datetime(2022, 10, 29, 22, 0, 0, 0, tzinfo=timezone.utc), True
-        ),
+        pytest.param(datetime(2022, 10, 29, 22, 0, 0, 0, tzinfo=UTC), True),
         pytest.param(
             datetime.fromisoformat("2022-10-30T00:00:00+02:00"), True
         ),
-        pytest.param(
-            datetime(2022, 10, 30, 23, 0, 0, 0, tzinfo=timezone.utc), True
-        ),
+        pytest.param(datetime(2022, 10, 30, 23, 0, 0, 0, tzinfo=UTC), True),
         pytest.param(
             datetime.fromisoformat("2022-10-31T00:00:00+01:00"), True
         ),
@@ -95,31 +81,21 @@ def test_stromtag(
 @pytest.mark.parametrize(
     "dt, expected_is_start_or_end_of_german_gastag",
     [
-        pytest.param(
-            datetime(2020, 1, 1, 0, 0, 0, tzinfo=timezone.utc), False
-        ),
-        pytest.param(datetime(2020, 1, 1, 5, 0, 0, tzinfo=timezone.utc), True),
-        pytest.param(
-            datetime(2020, 1, 1, 4, 0, 0, tzinfo=timezone.utc), False
-        ),
-        pytest.param(
-            datetime(2022, 3, 26, 5, 0, 0, 0, tzinfo=timezone.utc), True
-        ),
+        pytest.param(datetime(2020, 1, 1, 0, 0, 0, tzinfo=UTC), False),
+        pytest.param(datetime(2020, 1, 1, 5, 0, 0, tzinfo=UTC), True),
+        pytest.param(datetime(2020, 1, 1, 4, 0, 0, tzinfo=UTC), False),
+        pytest.param(datetime(2022, 3, 26, 5, 0, 0, 0, tzinfo=UTC), True),
         pytest.param(
             datetime.fromisoformat("2022-03-26T06:00:00+01:00"), True
         ),
         pytest.param(
             datetime.fromisoformat("2022-03-27T04:00:00+02:00"), False
         ),
-        pytest.param(
-            datetime(2022, 3, 27, 4, 0, 0, 0, tzinfo=timezone.utc), True
-        ),
+        pytest.param(datetime(2022, 3, 27, 4, 0, 0, 0, tzinfo=UTC), True),
         pytest.param(
             datetime.fromisoformat("2022-03-27T06:00:00+02:00"), True
         ),
-        pytest.param(
-            datetime(2022, 10, 29, 4, 0, 0, 0, tzinfo=timezone.utc), True
-        ),
+        pytest.param(datetime(2022, 10, 29, 4, 0, 0, 0, tzinfo=UTC), True),
         pytest.param(
             datetime.fromisoformat("2022-10-30T06:00:00+01:00"), True
         ),
@@ -163,7 +139,7 @@ def test_gastag(
 @pytest.mark.parametrize(
     "dt, expected_has_not_utc_offset",
     [
-        pytest.param(datetime(2020, 1, 1, 0, 0, 0, tzinfo=timezone.utc), True),
+        pytest.param(datetime(2020, 1, 1, 0, 0, 0, tzinfo=UTC), True),
         pytest.param(
             datetime.fromisoformat("2022-03-26T06:00:00+01:00"), False
         ),
@@ -182,7 +158,7 @@ def test_has_no_utc_offset(
 @pytest.mark.parametrize(
     "dt, division",
     [
-        pytest.param(datetime(2020, 1, 1, 0, 0, 0, tzinfo=timezone.utc), 0),
+        pytest.param(datetime(2020, 1, 1, 0, 0, 0, tzinfo=UTC), 0),
     ],
 )
 def test_is_xtag_limit_raises(dt: datetime, division: Division) -> None:
@@ -194,37 +170,37 @@ def test_is_xtag_limit_raises(dt: datetime, division: Division) -> None:
     "dt, division, expected",
     [
         pytest.param(
-            datetime(2020, 1, 1, 0, 0, 0, tzinfo=timezone.utc),
+            datetime(2020, 1, 1, 0, 0, 0, tzinfo=UTC),
             Division.GAS,
             False,
         ),
         pytest.param(
-            datetime(2020, 1, 1, 5, 0, 0, tzinfo=timezone.utc),
+            datetime(2020, 1, 1, 5, 0, 0, tzinfo=UTC),
             Division.GAS,
             True,
         ),
         pytest.param(
-            datetime(2020, 1, 1, 4, 0, 0, tzinfo=timezone.utc),
+            datetime(2020, 1, 1, 4, 0, 0, tzinfo=UTC),
             Division.GAS,
             False,
         ),
         pytest.param(
-            datetime(2022, 3, 26, 5, 0, 0, 0, tzinfo=timezone.utc),
+            datetime(2022, 3, 26, 5, 0, 0, 0, tzinfo=UTC),
             Division.GAS,
             True,
         ),
         pytest.param(
-            datetime(2020, 1, 1, 0, 0, 0, tzinfo=timezone.utc),
+            datetime(2020, 1, 1, 0, 0, 0, tzinfo=UTC),
             Division.STROM,
             False,
         ),
         pytest.param(
-            datetime(2019, 12, 31, 23, 0, 0, tzinfo=timezone.utc),
+            datetime(2019, 12, 31, 23, 0, 0, tzinfo=UTC),
             Division.STROM,
             True,
         ),
         pytest.param(
-            datetime(2019, 12, 31, 22, 0, 0, tzinfo=timezone.utc),
+            datetime(2019, 12, 31, 22, 0, 0, tzinfo=UTC),
             Division.STROM,
             False,
         ),

@@ -1,38 +1,42 @@
 # bdew_datetimes
+
 ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/mj0nez/bdew-datetimes/packaging_test.yml?style=plastic)![PyPI - Python Version](https://img.shields.io/pypi/pyversions/bdew-datetimes?style=plastic)![PyPI - License](https://img.shields.io/pypi/l/bdew-datetimes?style=plastic)![PyPI](https://img.shields.io/pypi/v/bdew-datetimes?style=plastic)
 
 A collection of utils to work with datetimes and holidays in the German energy
 market and is based on the [python-holiday](https://github.com/vacanza/holidays) package.
 
-The implementation considers the publications of the **BDEW** (Bundesverband der Energie- und Wasserwirtschaft e. V.) and **EDI@Energy**, which provide boundaries and guidance for the data exchange on the german energy market. 
+The implementation considers the publications of the **BDEW** (Bundesverband der Energie- und Wasserwirtschaft e. V.) and **EDI@Energy**, which provide boundaries and guidance for the data exchange on the german energy market.
 
 ### Current highlights:
-* BDEW-holiday calendar
-    * allows dict like evaluation of dates and datetimes and contains all holidays considered by the BDEW
-* Statutory Periods ("_Gesetzliche Fristen_")
-    * calculate dates of the kind "_x Werktage ab Stichtag_"
-    * calculate dates of the kind "_nter Werktag des Fristen- bzw. Liefermonats_"
-* Gas-Day / Market Day evaluation
+
+- BDEW-holiday calendar
+  - allows dict like evaluation of dates and datetimes and contains all holidays considered by the BDEW
+- Statutory Periods ("_Gesetzliche Fristen_")
+  - calculate dates of the kind "_x Werktage ab Stichtag_"
+  - calculate dates of the kind "_nter Werktag des Fristen- bzw. Liefermonats_"
+- Gas-Day / Market Day evaluation
 
 ### Future Scope:
 
-* providing subdivision holiday calendars to allow granular load profiles
-
+- providing subdivision holiday calendars to allow granular load profiles
 
 ## Quick Start and Examples
 
 Install the package from [pypi](https://pypi.org/project/bdew-datetimes/):
+
 ```bash
 pip install bdew-datetimes
 ```
 
 ### Check if a date is a _specific_ BDEW Holidays
+
 > [!NOTE]  
-By "specific" we mean: Holidays that are neither nation- nor statewide holidays (those are defined in the [upstream package holidays](https://github.com/vacanza/holidays)) but defined by the BDEW directly.
-In 2025 those are: Sonderfeiertag 24h Lieferantenwechsel, Heiligabend and Silvester only.
+> By "specific" we mean: Holidays that are neither nation- nor statewide holidays (those are defined in the [upstream package holidays](https://github.com/vacanza/holidays)) but defined by the BDEW directly.
+> In 2025 those are: Sonderfeiertag 24h Lieferantenwechsel, Heiligabend and Silvester only.
 
 The `HolidaySum` returned by `create_bdew_calendar` contains the BDEW specific holidays.
-This means it contains those holidays which are _defined_ by BDEW which includes Heiligabend and Silvester as well as special days without Marktkommunikation but _not_ the local or nationwide holidays in Germany and its states. 
+This means it contains those holidays which are _defined_ by BDEW which includes Heiligabend and Silvester as well as special days without Marktkommunikation but _not_ the local or nationwide holidays in Germany and its states.
+
 ```python
 from datetime import date
 from bdew_datetimes import create_bdew_calendar
@@ -45,11 +49,14 @@ assert date(2022, 12, 2) in bdew_holidays is False # The 12th of February is not
 
 print(bdew_holidays.get('2022-01-01'))  # prints "Neujahr"
 ```
+
 The **union** (type `HolidaySum`) of both nation and state wide holidays **and** the BDEW holidays (only the latter is returned by `create_bdew_calendar`) is the relevant calendar for German utilities.
 
 ### Check if a given Date is a BDEW Working Day
+
 BDEW working days are those days taken into account for the "Fristenberechnung".
 The function `is_bdew_working_day` considers both national **and** state wide holidays **and** BDEW holidays:
+
 ```python
 from datetime import date
 
@@ -63,6 +70,7 @@ assert is_bdew_working_day(date(2023, 12, 24)) is False  # Heiligabend (BDEW hol
 ```
 
 You can also get the next or previous working day for any date:
+
 ```python
 from datetime import date
 
@@ -74,6 +82,7 @@ assert get_next_working_day(date(2023, 1, 20)) == date(2023, 1, 23)  # the next 
 ```
 
 ### Calculate Statutory Periods
+
 Statutory periods define the maximum time between e.g. the EDIFACT message for the "Anmeldung" and the actual start of supply ("Lieferbeginn").
 
 ```python
@@ -97,7 +106,9 @@ gesetzliche_frist = Period(
 fruehest_moeglicher_lieferbeginn = add_frist(eingang_der_anmeldung, gesetzliche_frist)
 assert fruehest_moeglicher_lieferbeginn == date(2016, 7, 19)
 ```
+
 ### Calculate "Liefer- and Fristenmonate"
+
 Liefer- and Fristenmonat are concepts used in MaBiS and GPKE:
 
 ```python
@@ -122,14 +133,38 @@ The BDEW considers all days as holidays, which are nationwide holidays and days,
 Furthermore, the 24. and the 31. December are holidays as well.
 Therefore, this package utilizes the composition of all available german holiday calendars and adds the two additional days.
 
-Shifting holidays to the next weekday if they fall on a weekend is currently not considered.  
+Shifting holidays to the next weekday if they fall on a weekend is currently not considered.
 
+## Development
+
+This project uses [uv](https://docs.astral.sh/uv/) for dependency management & tooling and a [GNU Makefile](https://makefiletutorial.com/) to standardize common development commands. If you want to avoid `make` you can run each command manually, in this case please still refer to the [Makefile](./Makefile).
+
+After installing uv & make, set up the development environment with:
+
+```bash
+make dev
+```
+
+Run the tests and the individual tooling via the corresponding target:
+
+```bash
+make tests
+
+make typing
+
+make lint
+
+make format
+
+make spell-check
+```
 
 ## License
 
-This library is licensed under the *MIT* license, see the [LICENSE file](LICENSE).
+This library is licensed under the _MIT_ license, see the [LICENSE file](LICENSE).
 
 ## Users
-This library is used by the following projects:
-- [Hochfrequenz Fristenkalender](https://fristenkalender.hochfrequenz.de); the respective backend is also available [online](https://fristenkalender-api.happyfield-64ecc075.westeurope.azurecontainerapps.io/docs) and as [Docker image](https://github.com/Hochfrequenz/fristenkalender-functions/pkgs/container/fristenkalender-functions)
 
+This library is used by the following projects:
+
+- [Hochfrequenz Fristenkalender](https://fristenkalender.hochfrequenz.de); the respective backend is also available [online](https://fristenkalender-api.happyfield-64ecc075.westeurope.azurecontainerapps.io/docs) and as [Docker image](https://github.com/Hochfrequenz/fristenkalender-functions/pkgs/container/fristenkalender-functions)

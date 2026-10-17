@@ -40,8 +40,7 @@ jobs:
           make lint
       - name: Run the formatters (check only)
         run: |
-          make black
-          make isort
+          make check-format
       - name: Run the spell check
         run: |
           make spell-check

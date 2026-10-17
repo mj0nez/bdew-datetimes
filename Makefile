@@ -1,5 +1,4 @@
 
-
 dev:
 	uv sync
 .PHONY: dev
@@ -26,12 +25,11 @@ typing:
 .PHONY: typing
 
 lint:
-	uv run --group linting pylint bdew_datetimes
+	uv run ruff check .
 .PHONY: lint
 
 format:
-	uv run black .
-	uv run isort .
+	uv run ruff format .
 .PHONY: format
 
 spell-check:
@@ -39,10 +37,7 @@ spell-check:
 .PHONY: spell-check
 
 # ci-only targets
-black:
-	uv run black . --check
-.PHONY: black
-
-isort:
-	uv run isort . --check
-.PHONY: isort
+ci-format:
+	uv run ruff format --check .
+	uv run ruff check --select I .
+.PHONY: format

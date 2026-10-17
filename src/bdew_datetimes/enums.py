@@ -62,7 +62,6 @@ class MonthType(Enum):
     _before_ the "Liefermonat".
     Quote: 'Nach der Festlegung BK6-06-009 (GPKE) der Monat vor dem Liefermonat.'
     """
-    # pylint:disable=line-too-long
     # source: https://www.bundesnetzagentur.de/DE/Beschlusskammern/1_GZ/BK6-GZ/_bis_2010/2006/BK6-06-009/BK6-06-009_Beschluss_download.pdf?__blob=publicationFile&v=5
 
 

@@ -90,9 +90,7 @@ def create_bdew_calendar() -> HolidaySum:
     for subdivision in _relevant_subdivisions:
         # the method __add__ expects a Union[int, "HolidayBase", "HolidaySum"] as `other`
         # here, we're dealing with a child instance of HolidayBase
-        result += Germany(
-            subdiv=subdivision, observed=False, language="de"
-        )  # type: ignore[assignment]
+        result += Germany(subdiv=subdivision, observed=False, language="de")  # type: ignore[assignment]
     if result.language is None:
         # This is a workaround to a problem in holidays 0.20-0.53 (at least):
         # When adding the subdivisions, the language attribute is lost,

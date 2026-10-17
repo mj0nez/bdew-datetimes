@@ -1,4 +1,4 @@
-name: "Black"
+name: "Format"
 
 on:
   pull_request:
@@ -6,11 +6,8 @@ on:
     branches:
       - main
 jobs:
-  black:
+  format:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        tool: ["black", "isort"]
     env:
       UV_LOCKED: true
     steps:
@@ -19,6 +16,6 @@ jobs:
         uses: astral-sh/setup-uv@v9.0.0
         with:
           python-version: "3.14"
-      - name: ${{ matrix.tool }} Code Formatter
+      - name: ruff ci-format
         run: |
-          make ${{ matrix.tool }}
+          make ci-format

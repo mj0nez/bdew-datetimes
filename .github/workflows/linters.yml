@@ -6,7 +6,7 @@ on:
     branches:
       - main
 jobs:
-  pylint:
+  linters:
     name: Python Code Quality and Lint
     runs-on: ubuntu-latest
     strategy:

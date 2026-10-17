@@ -133,7 +133,6 @@ def get_nth_working_day_of_month(
     return result
 
 
-# pylint:disable=duplicate-code
 __all__ = [
     "is_bdew_working_day",
     "get_next_working_day",

@@ -42,7 +42,7 @@ tests = ["pytest==9.1.1", "syrupy==5.5.3"]
 linting = ["ruff==0.16.2"]
 type_check = [
     "mypy==2.3.0",
-    "types-python-dateutil==2.9.0.20260716",
+    "types-python-dateutil==2.9.0.20260807",
     "types-pytz==2026.3.1.20260727",
     { include-group = "tests" },
 ]
@@ -55,7 +55,12 @@ dev = [
 ]
 
 [tool.uv]
-default-groups = []
+# to avoid bypassing our default cooldown
+exclude-newer = "7 days"
+
+[tool.uv.pip]
+only-binary = [":all:"] # prefer wheels when using the pip interface
+
 
 [tool.ruff]
 line-length = 79

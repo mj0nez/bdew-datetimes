@@ -1,6 +1,6 @@
 """enums used inside the package"""
 
-from enum import Enum
+from enum import Enum, StrEnum
 
 
 class Division(Enum):
@@ -12,7 +12,7 @@ class Division(Enum):
     GAS = 2  #: gas
 
 
-class DayType(str, Enum):
+class DayType(StrEnum):
     """
     An enum to differentiate between calendar days and working days.
     """

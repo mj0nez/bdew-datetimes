@@ -73,7 +73,7 @@ dev = [
 exclude-newer = "7 days"
 
 [tool.uv.pip]
-only-binary = [":all:"] # preferr wheels when using the pip interface
+only-binary = [":all:"] # prefer wheels when using the pip interface
 
 [tool.black]
 line-length = 79

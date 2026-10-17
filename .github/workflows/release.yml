@@ -41,7 +41,7 @@ jobs:
           make lint
       - name: Run the formatters (check only)
         run: |
-          make check-format
+          make ci-format
       - name: Run the spell check
         run: |
           make spell-check

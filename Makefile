@@ -46,5 +46,3 @@ black:
 isort:
 	uv run isort . --check
 .PHONY: isort
-
-

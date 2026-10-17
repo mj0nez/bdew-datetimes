@@ -38,7 +38,7 @@ requires = ["hatchling>=1.8.0", "hatch-vcs", "hatch-fancy-pypi-readme"]
 build-backend = "hatchling.build"
 
 [dependency-groups]
-tests = ["pytest==9.1.1", "syrupy==5.5.3"]
+tests = ["pytest==9.1.1", "syrupy==6.1.1"]
 linting = ["ruff==0.17.0"]
 type_check = [
     "mypy==2.4.0",

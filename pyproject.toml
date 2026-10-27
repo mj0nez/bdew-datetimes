@@ -39,7 +39,7 @@ build-backend = "hatchling.build"
 
 [dependency-groups]
 tests = ["pytest==9.1.1", "syrupy==6.1.1"]
-linting = ["ruff==0.17.0"]
+linting = ["ruff==0.17.1"]
 type_check = [
     "mypy==2.4.0",
     "types-python-dateutil==2.9.0.20260807",
